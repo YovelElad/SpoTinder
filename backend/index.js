@@ -28,20 +28,30 @@ app.get('/setUp/:userId', (req, res) => {
 app.get('/callback', (req, res) => {
     const code = req.query.code || null;
     console.log(req.query);
-    // if(code) {
-    //     DB.addUser({
-    //         id: req.query.state, 
-    //         token:code,
-
-    //     });
-    // }
     if (code) {
-        try {
-            api.authorizeSpotify(req.query.state,code);
-            res.send('<h1>Successfully logged in!</h1>');
-        } catch (err) {
-            res.send('<h1>Login Error: ' + err.message + '</h1><br><a href="/setUp/' + req.query.id + '">Try again</a>');
-        }
+        api.authorizeSpotify(req.query.state,code).then(user => {
+            console.log(`then of authorizeSpotify, user: ${user.id}`);
+            api.buildUserProfile(user).then((newUser) => {
+                console.log(`then of buildUserProfile, user: ${newUser}`);
+                DB.addUser(newUser);
+                res.send(`<h1>Successfully logged in as ${newUser.name}!</h1>`);
+            })
+        });
+            
+            /*
+            .then((user) => {
+                console.log("in then, user id= " + user.id);
+                    DB.addUser(user);
+                }).catch((err) => {
+                    console.log('Error:', err);
+                    res.send('<>Login Error: ' + err.message);
+                });
+            });
+            */
+            
+        // } catch (err) {
+        //     res.send('<h1>Login Error: ' + err.message + '</h1><br><a href="/setUp/' + req.query.id + '">Try again</a>');
+        // }
         // res.redirect('/?id=' + req.query.state);
     } else {
         res.send(`error: ${req.query}`);
