@@ -11,27 +11,22 @@ var credentials = {
     clientSecret: process.env.CLIENT_SECRET,
     redirectUri: process.env.REDIRECT_URI 
 };
-  
-var spotifyApi = new SpotifyWebApi(credentials);
-
-
-var scopes = ['user-read-private','user-top-read' ,'user-read-email'],
-redirectUri = process.env.REDIRECT_URI,
-clientId = process.env.CLIENT_ID,
-state = 'state';
-
-let code;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/setUp/:userId', (req, res) => {
-    res.redirect(api.getAuthorizationUrl(req.params.userId));
-    // res.redirect('https://accounts.spotify.com/authorize?response_type=code&client_id=' + clientId + '&scope=' + encodeURIComponent(scopes) + '&redirect_uri=' + encodeURIComponent(redirectUri) + '&state=' + req.params.userId);
+    const user = DB.getUser(req.params.userId);
+    if (user && user.token) {
+        res.send(`user is already set up!`);
+    } else {
+        console.log(`user ${req.params.userId} is not set up!`);
+        res.redirect(api.getAuthorizationUrl(req.params.userId));
+    }
 });
 
 app.get('/callback', (req, res) => {
-    code = req.query.code || null;
+    const code = req.query.code || null;
     console.log(req.query);
     // if(code) {
     //     DB.addUser({
@@ -40,7 +35,17 @@ app.get('/callback', (req, res) => {
 
     //     });
     // }
-    res.redirect('/?id=' + req.query.state);
+    if (code) {
+        try {
+            api.authorizeSpotify(req.query.state,code);
+            res.send('<h1>Successfully logged in!</h1>');
+        } catch (err) {
+            res.send('<h1>Login Error: ' + err.message + '</h1><br><a href="/setUp/' + req.query.id + '">Try again</a>');
+        }
+        // res.redirect('/?id=' + req.query.state);
+    } else {
+        res.send(`error: ${req.query}`);
+    }
 });
 
 // app.get('/:id', (req, res) => {
@@ -48,34 +53,43 @@ app.get('/callback', (req, res) => {
 // })
 
 app.get('/', (req, res) => {
-    if(code) {
-        try {
-            api.authorizeSpotify(req.query.id,code);
-            res.send('<h1>Successfully logged in!</h1>');
-        } catch(err) {
-            console.log(err);
-            res.send('<h1>Error logging in!</h1>');
-        }
-        /*
-        spotifyApi.authorizationCodeGrant(code)
-        .then(function(data) {
-            spotifyApi.setAccessToken(data.body['access_token']);
-            spotifyApi.setRefreshToken(data.body['refresh_token']);
-            DB.addUser({
-                id: req.query.id,
-                token: data.body['access_token'],
-                refreshToken: data.body['refresh_token'],
-            });
-            res.send('<h1>Successfully logged in!</h1>');
-        }, function(err) {
-            console.log('Something went wrong!', err);
-            res.send('<h1>Somthing went wrong</h1>');
-        });
-        */
+    if (!req.query.id) {
+        res.send('<h1>Please enter a user id</h1>');
     } else {
-        res.send('<h1>Please log in!</h1>');
+        const user = DB.getUser(req.query.id);
+        if (!user) {
+            res.send('<h1>Please log in</h1> <a href="/setUp/' + req.query.id + '">Log in</a>');
+        } else {
+            res.send(`<h1>Welcome to the Spotify Matching App, ${user.name}</h1>`);
+        }
     }
 });
+    // if(code) {
+    //     try {
+    //     } catch(err) {
+    //         console.log(err);
+    //         res.send('<h1>Error logging in!</h1>');
+    //     }
+    //     /*
+    //     spotifyApi.authorizationCodeGrant(code)
+    //     .then(function(data) {
+    //         spotifyApi.setAccessToken(data.body['access_token']);
+    //         spotifyApi.setRefreshToken(data.body['refresh_token']);
+    //         DB.addUser({
+    //             id: req.query.id,
+    //             token: data.body['access_token'],
+    //             refreshToken: data.body['refresh_token'],
+    //         });
+    //         res.send('<h1>Successfully logged in!</h1>');
+    //     }, function(err) {
+    //         console.log('Something went wrong!', err);
+    //         res.send('<h1>Somthing went wrong</h1>');
+    //     });
+    //     */
+    // } else {
+    //     res.send('<h1>Please log in!</h1>');
+    // }
+// });
 
 app.get('/topArtists/:id', (req, res) => {
     let user = DB.getUser(req.params.id)
@@ -168,6 +182,6 @@ app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
 
-var authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);
-console.log(authorizeURL);
+// var authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);
+// console.log(authorizeURL);
   
