@@ -1,9 +1,11 @@
 require('dotenv').config();
 const SpotifyWebApi = require('spotify-web-api-node');
 const express = require('express');
+const DB = require('./data/index.js');
 const app = express();
 const port = process.env.PORT || 8888;
-
+const api = require('./modules/spotifyAPI.js');
+const match = require('./modules/matching.js');
 var credentials = {
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
@@ -23,32 +25,68 @@ let code;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/setUp', (req, res) => {
-    res.redirect('https://accounts.spotify.com/authorize?response_type=code&client_id=' + clientId + '&scope=' + encodeURIComponent(scopes) + '&redirect_uri=' + encodeURIComponent(redirectUri) + '&state=' + state);
+app.get('/setUp/:userId', (req, res) => {
+    res.redirect(api.getAuthorizationUrl(req.params.userId));
+    // res.redirect('https://accounts.spotify.com/authorize?response_type=code&client_id=' + clientId + '&scope=' + encodeURIComponent(scopes) + '&redirect_uri=' + encodeURIComponent(redirectUri) + '&state=' + req.params.userId);
 });
 
 app.get('/callback', (req, res) => {
     code = req.query.code || null;
-    res.redirect('/');
+    console.log(req.query);
+    // if(code) {
+    //     DB.addUser({
+    //         id: req.query.state, 
+    //         token:code,
+
+    //     });
+    // }
+    res.redirect('/?id=' + req.query.state);
 });
+
+// app.get('/:id', (req, res) => {
+//     let userId = req.params.id;
+// })
 
 app.get('/', (req, res) => {
     if(code) {
+        try {
+            api.authorizeSpotify(req.query.id,code);
+            res.send('<h1>Successfully logged in!</h1>');
+        } catch(err) {
+            console.log(err);
+            res.send('<h1>Error logging in!</h1>');
+        }
+        /*
         spotifyApi.authorizationCodeGrant(code)
         .then(function(data) {
             spotifyApi.setAccessToken(data.body['access_token']);
             spotifyApi.setRefreshToken(data.body['refresh_token']);
+            DB.addUser({
+                id: req.query.id,
+                token: data.body['access_token'],
+                refreshToken: data.body['refresh_token'],
+            });
             res.send('<h1>Successfully logged in!</h1>');
         }, function(err) {
             console.log('Something went wrong!', err);
             res.send('<h1>Somthing went wrong</h1>');
         });
+        */
     } else {
         res.send('<h1>Please log in!</h1>');
     }
 });
 
-app.get('/topArtists', (req, res) => {
+app.get('/topArtists/:id', (req, res) => {
+    let user = DB.getUser(req.params.id)
+    if(user) {
+        res.send("<h1>Top Artists</h1><ul>" + user.topArtists.map(artist => "<li>" + artist + "</li>").join("") + "</ul>");
+    }else {
+        res.send('<h1>Error getting top artists</h1>');
+    }
+
+    /*
+
     spotifyApi.getMyTopArtists({limit: 50, time_range: 'long_term'})
     .then(function(data) {
         let artists = data.body.items;
@@ -61,9 +99,18 @@ app.get('/topArtists', (req, res) => {
             console.log('Something went wrong!', err);
             res.send('<h1>Somthing went wrong</h1>');
             });
+            */
     });
 
-app.get('/topTracks', (req, res) => {
+app.get('/topTracks/:id', (req, res) => {
+    let user = DB.getUser(req.params.id);
+    if(user)
+        res.send("<h1>Top Tracks</h1><ul>" + user.topTracks.map(track => "<li>" + track + "</li>").join("") + "</ul>");
+    else {        
+        res.send('<h1>Error getting top tracks</h1>');
+    }
+
+    /*
     spotifyApi.getMyTopTracks({limit: 50, time_range: 'long_term'})
     .then(function(data) {
         let tracks = data.body.items;
@@ -77,8 +124,13 @@ app.get('/topTracks', (req, res) => {
             res.send('<h1>Somthing went wrong</h1>');
             });
     }
-);
+    */
+});
 
+app.get('/match', (req, res) => {
+    let matchScore = match.getMatchScore(req.query.userId, req.query.otherUserId);
+    res.send("<h1>Match Score</h1><h2>"+matchScore.name1+" and "+matchScore.name2+"</h2><h3>" + matchScore.score + "</h3>");
+});
 
 // app.all('*', (req,res) => {
 //     console.log(req.body);
