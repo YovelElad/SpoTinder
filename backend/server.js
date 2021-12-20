@@ -6,6 +6,7 @@ const app = express();
 const port = process.env.PORT || 8888;
 const api = require('./modules/spotifyAPI.js');
 const match = require('./modules/matching.js');
+var cors = require('cors')
 var credentials = {
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
@@ -15,6 +16,7 @@ var credentials = {
 const { usersRouter } = require('./routers/usersRouter');
 const { spotifyRouter } = require('./routers/spotifyRouter');
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('frontend'));

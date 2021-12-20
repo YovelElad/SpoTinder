@@ -7,7 +7,8 @@
 
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
 
-    <script src="scripts.js"></script>
+    <script defer src="scripts.js"></script>
+    <script defer src="./scripts/register.js"></script>
     <title>Sign Up1</title>
 </head>
 
@@ -26,19 +27,17 @@
                     <h4>Sign Up</h4>
                 </div>
 
-
-
-                <form action="./register2.html" method="GET">
+                <form id="registerForm" action="http://localhost:8888/users", method="POST">
                     </br>
                     <div class="form-group">
                         <label for="userName">User name:</label>
-                        <input type="text" class="form-control" id="userNameInput" placeholder="User name">
+                        <input type="text" class="form-control" id="userNameInput" name="name" placeholder="User name">
                         </br>
                         <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
                     </div>
                     <div class="form-group">
                         <label for="emailInput">Email address</label>
-                        <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp" placeholder="Enter email">
+                        <input type="email" class="form-control" id="emailInput" name="email" aria-describedby="emailHelp" placeholder="Enter email">
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
                     <div class="form-group">
@@ -49,7 +48,7 @@
                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
                         <label class="form-check-label" for="exampleCheck1">Check me out</label>
                     </div> -->
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" id="submitBtn" class="btn btn-primary">Submit</button>
                     <!-- <a href="#">Next</a> -->
                 </form>
             </div>
