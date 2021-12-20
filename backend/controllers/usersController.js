@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const DB = require("../data/index");
+const { findByIdAndUpdate } = require("../models/userModel");
 
 const getAllUsers = (req, res) => {
     User.find({}, (err, users) => {
@@ -72,10 +73,31 @@ const deleteUser = (req, res) => {
     });
 };
 
+const addLike = (req, res) => {
+    console.log(req.params.id);
+    console.log(req.body.id);
+
+    User.findByIdAndUpdate(req.params.id, {
+        $push: { likedMe: req.body.id },
+    }, function(err, result) {
+        res.json(result);
+    })
+}
+
+const addMatch = (req, res) => {
+    User.findByIdAndUpdate(req.params.id, {
+        $push: { matches: req.body.id }
+    }, function(err, result) {
+        res.json(result);
+    })
+}
+
 module.exports = {
     getAllUsers,
     getUserById,
     createUser,
     updateUser,
     deleteUser,
+    addLike,
+    addMatch,
 };
