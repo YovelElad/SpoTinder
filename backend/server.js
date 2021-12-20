@@ -13,12 +13,14 @@ var credentials = {
 };
 
 const { usersRouter } = require('./routers/usersRouter');
+const { spotifyRouter } = require('./routers/spotifyRouter');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('frontend'));
 
 app.use('/users', usersRouter);
+app.use('/spotify', spotifyRouter);
 
 app.all('*', (req, res) => {
     res.json({status: false, message: 'Route not found'});
