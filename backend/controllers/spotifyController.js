@@ -1,5 +1,6 @@
 const api = require('../modules/spotifyAPI');
 const matchEngine = require('../modules/matching');
+const DB = require('../data/index');
 
 callback = (req, res) => {
     const code = req.query.code || null;
@@ -13,6 +14,8 @@ callback = (req, res) => {
                 matchEngine.calculateMatches(newUser).then((matches) => {
                     console.log(`then of calculateMatches, user: ${matches}`);
                     newUser.matches = matches;
+                    DB.updateUser(userId, newUser);
+                    newUser._id = userId;
                     // DB.addUser(newUser);
                     // res.redirect('/');
                     res.json({status: true, data: newUser});
@@ -26,9 +29,10 @@ callback = (req, res) => {
 } // should determine if user is sign up or not if not then 
 
 login = (req, res) => {
-    const url = api.getAuthorizationUrl(1); // 1 is the user id - we dont use this yet
-    res.redirect(url);
-    // res.json({status: true, data: url});
+    const userId = req.params.userId;
+    const url = api.getAuthorizationUrl(userId); // 1 is the user id - we dont use this yet
+    // res.redirect(url);
+    res.json({status: true, data: url});
 } 
 
 module.exports = {
