@@ -10,13 +10,19 @@ const credentials = {
 const scopes = ['user-read-private','user-top-read' ,'user-read-email'];
   
 async function authorizeSpotify(userId,code) {
-    const spotifyApi = new SpotifyWebApi(credentials);
-    const data = await spotifyApi.authorizationCodeGrant(code);
-    const user = {};
-    user.token = data.body.access_token;
-    user.refreshToken = data.body.refresh_token;
-    user.id= userId;
-    return user;
+    console.log(code);
+    console.log(credentials);
+    try {
+        const spotifyApi = new SpotifyWebApi(credentials);
+        const data = await spotifyApi.authorizationCodeGrant(code);
+        const user = {};
+        user.token = data.body.access_token;
+        user.refreshToken = data.body.refresh_token;
+        user.id= userId;
+        return user;
+    } catch (error) {
+        console.log('Error creating the api object', error);
+    }
 }
 
 async function buildUserProfile(user) {
