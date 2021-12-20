@@ -31,8 +31,6 @@ $(document).ready(function() {
             }
             i++;
         })
-
-
         i = 0, j = 0;
         $.each(data, function(key, val) {
             console.log(data[i]);
@@ -65,17 +63,17 @@ $(document).ready(function() {
 
 
     //Register functionality
-    $("#connectToSpotify").click(function() {
-        $(this).css("display", "none");
-        $("#register > .container > .card").css('height', '380px');
-        $("#register > .container > .card").css('width', '350px');
-        $("#register .form-group").removeClass("d-none");
-    })
+    // $("#connectToSpotify").click(function() {
+    //     $(this).css("display", "none");
+    //     $("#register > .container > .card").css('height', '380px');
+    //     $("#register > .container > .card").css('width', '350px');
+    //     $("#register .form-group").removeClass("d-none");
+    // })
 
 
-    $("#register button").click(function() {
-        const pass = $("#register #password").value;
-        console.log(pass);
-    })
+    // $("#register button").click(function() {
+    //     const pass = $("#register #password").value;
+    //     console.log(pass);
+    // })
 
 });

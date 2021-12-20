@@ -1,130 +1,16 @@
-/* #body {
-    width: 1000px;
-    position: relative;
-}
-
-#wrapper {
-    width: 700px;
-    margin: 100px auto;
-    background-color: #eeeeee;
-    position: relative;
-}
-
-form {
-    width: 100%;
-    background-color: #505050;
-    height: 500px;
-    position: relative;
-}
-
-#signUpWithSpotifyButton {
-    border-radius: 30px;
-    height: 50px;
-    position: absolute;
-    margin: auto;
-    position: relative;
-    display: flex;
-}
-  
-  .vertical-center {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-  }
-
-  #test {
-      position: relative;
-      
-  } */
-
-
-/* 
-
-
-  body {
-    background-color: #FFEBEE
-}
-
-.card {
-    width: 400px;
-    background-color: #fff;
-    border: none;
-    border-radius: 12px
-}
-
-label.radio {
-    cursor: pointer;
-    width: 100%
-}
-
-label.radio input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    visibility: hidden;
-    pointer-events: none
-}
-
-label.radio span {
-    padding: 7px 14px;
-    border: 2px solid #eee;
-    display: inline-block;
-    color: #039be5;
-    border-radius: 10px;
-    width: 100%;
-    height: 48px;
-    line-height: 27px
-}
-
-label.radio input:checked+span {
-    border-color: #039BE5;
-    background-color: #81D4FA;
-    color: #fff;
-    border-radius: 9px;
-    height: 48px;
-    line-height: 27px
-}
-
-.form-control {
-    margin-top: 10px;
-    height: 48px;
-    border: 2px solid #eee;
-    border-radius: 10px
-}
-
-.form-control:focus {
-    box-shadow: none;
-    border: 2px solid #039BE5
-}
-
-.agree-text {
-    font-size: 12px
-}
-
-.terms {
-    font-size: 12px;
-    text-decoration: none;
-    color: #039BE5
-}
-
-.confirm-button {
-    height: 50px;
-    border-radius: 10px
-} */
-
-#register .card {
-    height: 200px;
-    width: 300px;
-}
-
 form {
     top: 600px;
     justify-content: center;
 }
 
-form>a {
+#register3 form {
+    position: relative;
+    top: 50px;
+}
+
+form>a,
+#register1 form>button,
+#register2 form>button {
     background-color: #1DB954;
     color: #fff;
     text-decoration: none;
@@ -137,6 +23,7 @@ form>a {
     border-radius: 30px;
     margin: auto;
     top: 50px;
+    border: none;
 }
 
 form>a:hover {
@@ -148,30 +35,38 @@ form>a:hover {
 }
 
 body {
-    background-color: #eee
+    background-color: rgb(194, 194, 194)
 }
 
 .container {
-    height: 100vh;
+    height: 600px;
     display: flex;
     justify-content: center;
-    align-items: center
+    align-items: center;
+    /* top: -500px; */
+    /* background-color: aqua; */
 }
 
-.card {
+#register2 .card {
+    height: 200px;
+}
+
+.container .card {
     width: 360px;
-    height: 370px;
+    height: 470px;
     background-color: #fff;
     border-radius: 10px;
-    border: none;
+    /* border: none; */
     padding-top: 20px;
     padding-left: 20px;
     padding-right: 20px;
     position: relative;
+    display: block;
 }
 
 .form {
-    margin-top: 15px
+    margin-top: 15px;
+    /* background-color: aqua; */
 }
 
 form button {
