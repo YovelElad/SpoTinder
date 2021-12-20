@@ -4,11 +4,12 @@ const fs = require('fs');
 module.exports = {
     addUser: function(user) {
         // check that users does not already exist
-        if (DB.find(u => u.username === user.username)) {
-            return; // maybe throw error
+        if (DB.find(u => u.id === user.id)) {
+            throw new Error('User already exists');
+            //return; // maybe throw error
         }
         DB.push(user);
-        console.log(DB);
+        // console.log(DB);
         // write changes to file
         fs.writeFileSync('./backend/data/users.json', JSON.stringify(DB));
     },
