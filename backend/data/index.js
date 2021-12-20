@@ -1,35 +1,73 @@
-const DB = require('./users.json');
-const fs = require('fs');
+const User = require("../models/userModel");
+
 
 module.exports = {
     addUser: function(user) {
-        // check that users does not already exist
-        if (DB.find(u => u.username === user.username)) {
-            return; // maybe throw error
-        }
-        DB.push(user);
-        console.log(DB);
-        // write changes to file
-        fs.writeFileSync('./backend/data/users.json', JSON.stringify(DB));
+        const newUser = new User(user);
+        newUser.save((err, user) => {
+            if (err) {
+                throw new Error(err);
+            } 
+        });
     },
+
     getUser: function(id) {
-        return DB.find(user => user.id === id);
+        return new Promise((resolve, reject) => {
+            User.findById(id, (err, user) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(user);
+                }
+            });
+        });
     },
+
+    getUsers: function() {
+        return new Promise((resolve, reject) => {
+            User.find({}, (err, users) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(users);
+                }
+            });
+        });
+    },
+
     updateUser: function(id, user) {
-        const index = DB.findIndex(user => user.id === id);
-        DB[index] = user;
-        // write changes to file
-        fs.writeFileSync('./backend/data/users.json', JSON.stringify(DB));
+        return new Promise((resolve, reject) => {
+            User.findByIdAndUpdate(id, user, (err, user) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(user);
+                }
+            });
+        });
     },
+
     setUserToken: function(id, token) {
-        DB.find(user => user.id === id).token = token;
+        return new Promise((resolve, reject) => {
+            User.findByIdAndUpdate(id, { token }, (err, user) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(user);
+                }
+            });
+        });
     },
     getUserToken: function(id) {
-        return DB.find(user => user.id === id).token;
+        return new Promise((resolve, reject) => {
+            User.findById(id, (err, user) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(user.token);
+                }
+            });
+        });
     },
-    clearDB: function() {
-        DB.length = 0;
-        fs.writeFileSync('./backend/data/users.json', JSON.stringify(DB));
-    }
 };
 
