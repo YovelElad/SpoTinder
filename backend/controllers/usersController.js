@@ -37,6 +37,7 @@ const getUserById_not_in_use = (req, res) => {
 };
 
 const createUser = (req, res) => {
+<<<<<<< HEAD
     const user = new User(req.body);
     user.save((err, user) => {
         if (err) {
@@ -46,6 +47,19 @@ const createUser = (req, res) => {
             res.json({ status: true, data: user });
         }
     });
+=======
+  console.log(`create user req.body: ${req}`);
+  console.log(req);
+  const user = new User(req.body);
+  user.save((err, user) => {
+    if (err) {
+      res.json({ status: false, message: err });
+    } else {
+        
+      res.json({ status: true, data: user });
+    }
+  });
+>>>>>>> master
 };
 
 const updateUser = (req, res) => {
