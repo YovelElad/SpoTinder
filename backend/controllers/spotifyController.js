@@ -1,6 +1,24 @@
 const api = require('../modules/spotifyAPI');
+const User = require("../models/userModel");
 const matchEngine = require('../modules/matching');
 const DB = require('../data/index');
+
+
+async function cascadeMatches(matches, userId) {
+    console.log(`cascadeMatches, userId: ${userId}`);
+    matches.forEach((match) => {
+        const matchToPush = {...match};
+        matchToPush.user = userId;
+        User.findOneAndUpdate({"_id":match.user}, {$push: {matches: matchToPush}}, (err, user) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(`added ${userId} to ${match.user}`);
+            }
+        });
+    });
+}
+
 
 callback = (req, res) => {
     const code = req.query.code || null;
@@ -14,13 +32,16 @@ callback = (req, res) => {
                 matchEngine.calculateMatches(newUser).then((matches) => {
                     console.log(`then of calculateMatches, user: ${matches}`);
                     newUser.matches = matches;
+                    console.log(`cascaded matches`);                   
                     DB.getUser(userId).then((user) => {
-                        console.log(`then of getUser, user: ${user}`);
+                        console.log(`then of getUser, user: ${user.id}`);
                         if (user) {
                             newUser.email = user.email;
                             newUser.password = user.password;
                         } 
                         DB.updateUser(userId, newUser);
+                        
+                        cascadeMatches(matches, userId);
                         res.redirect('/?id=' + userId);
                         // res.json({status: true, data: newUser});
 

@@ -9,7 +9,7 @@ async function calculateMatches(user) {
     users.forEach(async (user) => {
         const matchScore = calculateMatchScore(user, userTopArtists, userTopTracks);
         // if match score is greater than 0.5 add to matches
-        if (matchScore > 0.5) {
+        if (matchScore.score > 0.5) {
             userMatches.push({user:user._id, score:matchScore.score, mutualArtists:matchScore.mutualArtists, mutualTracks:matchScore.mutualTracks});
         }
     });
@@ -22,9 +22,9 @@ function calculateMatchScore(user, userTopArtists, userTopTracks) {
     const userTopArtistsNames = user.topArtists;
     const userTopTracksNames = user.topTracks;
     let matchScore = 0;
-    const artistsMatch = userTopArtists.filter(artist => userTopArtistsNames.includes(artist)).length;
-    const tracksMatch = userTopTracks.filter(track => userTopTracksNames.includes(track)).length;
-    matchScore = ((artistsMatch + tracksMatch) / (userTopArtists.length + userTopTracks.length));
+    const artistsMatch = userTopArtists.filter(artist => userTopArtistsNames.includes(artist));
+    const tracksMatch = userTopTracks.filter(track => userTopTracksNames.includes(track));
+    matchScore = ((artistsMatch.length + tracksMatch.length) / (userTopArtists.length + userTopTracks.length));
     return {
         score: matchScore,
         mutualArtists: artistsMatch,
