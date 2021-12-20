@@ -1,0 +1,169 @@
+form {
+    top: 600px;
+    justify-content: center;
+}
+
+#register3 form {
+    position: relative;
+    top: 50px;
+}
+
+form>a,
+#register1 form>button,
+#register2 form>button {
+    background-color: #1DB954;
+    color: #fff;
+    text-decoration: none;
+    width: 70%;
+    display: block;
+    position: relative;
+    justify-content: space-evenly;
+    display: flex;
+    height: 30px;
+    border-radius: 30px;
+    margin: auto;
+    top: 50px;
+    border: none;
+}
+
+form>a:hover {
+    color: #000;
+    background-color: #fff;
+    border: 1px;
+    border-color: #1DB954;
+    border-style: solid;
+}
+
+body {
+    background-color: rgb(194, 194, 194)
+}
+
+.container {
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* top: -500px; */
+    /* background-color: aqua; */
+}
+
+#register2 .card {
+    height: 200px;
+}
+
+.container .card {
+    width: 360px;
+    height: 470px;
+    background-color: #fff;
+    border-radius: 10px;
+    /* border: none; */
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    position: relative;
+    display: block;
+}
+
+.form {
+    margin-top: 15px;
+    /* background-color: aqua; */
+}
+
+form button {
+    background-color: #1DB954;
+    color: #fff;
+    width: 70%;
+    display: block;
+    position: relative;
+    border-radius: 30px;
+    margin: auto;
+    top: 50px;
+    height: 30px;
+    border: none;
+}
+
+.form label {
+    font-weight: 700;
+    font-size: 14px
+}
+
+.form input {
+    height: 45px;
+    border: 2px solid #eee;
+    transition: all 0.9s
+}
+
+.form input:focus {
+    box-shadow: none;
+    border: 2px solid #2541B2
+}
+
+.social-button {
+    height: 45px;
+    background-color: #2541B2;
+    /* border-radius: 30px; */
+}
+
+.login-button {
+    margin-top: 15px
+}
+
+.login-button button {
+    height: 45px
+}
+
+#mainList {
+    position: relative;
+    top: 200px;
+}
+
+#mainList #listUl li {
+    list-style-type: none;
+    /* justify-content: space-evenly; */
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 60px;
+}
+
+
+/* #mainList #listUl button {
+    display: block;
+    float: right;
+  } */
+
+#mainList #listUl .unlike {
+    display: block;
+    float: right;
+    position: absolute;
+    right: 10px;
+    direction: ltr;
+    top: 10px;
+}
+
+#mainList #listUl .like {
+    display: block;
+    float: right;
+    position: absolute;
+    right: 90px;
+    top: 10px;
+}
+
+#mainList h1 {
+    /* position: absolute; */
+}
+
+#mainList #listUl li span {
+    position: absolute;
+    left: 60px;
+    top: 18px;
+}
+
+#mainList #listUl li img {
+    border-radius: 30px;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
