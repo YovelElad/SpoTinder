@@ -74,7 +74,6 @@ async function addUserTopTracks(userId, spotifyApi) {
 
 function getAuthorizationUrl(userId) {
     return 'https://accounts.spotify.com/authorize?response_type=code&client_id=' + process.env.CLIENT_ID + '&scope=' + encodeURIComponent(scopes) + '&redirect_uri=' + encodeURIComponent(process.env.REDIRECT_URI) + '&state=' + userId;
-    // return spotifyApi.createAuthorizeURL(scopes, state);
 }
 
 module.exports = {
