@@ -21,7 +21,8 @@ callback = (req, res) => {
                             newUser.password = user.password;
                         } 
                         DB.updateUser(userId, newUser);
-                        res.json({status: true, data: newUser});
+                        res.redirect('/?id=' + userId);
+                        // res.json({status: true, data: newUser});
 
                     });
                     // DB.addUser(newUser);
