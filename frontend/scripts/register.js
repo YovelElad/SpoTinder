@@ -1,19 +1,21 @@
 $("#registerForm").submit(function(e){
     e.preventDefault();
-    // var form = $("#registerForm");
-    var formData = new FormData(this);
+    var formData = {
+        username: $('#username').val(),
+        password: $('#password').val(),
+        email: $('#email').val(),
+    };
     console.log(formData);
 
     $.ajax({
         url: this.action,
         type: this.method,
         data: formData,
-        processData: false,
-        contentType: false,
         success: function(data){
             console.log(data);
             if(data.status){
                 // redirect to login page
+                console.log(data.data);
                 window.location.href = "/frontend/spotifyLogin.html?id=" + data.data._id;
             }
 

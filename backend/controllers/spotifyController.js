@@ -14,11 +14,19 @@ callback = (req, res) => {
                 matchEngine.calculateMatches(newUser).then((matches) => {
                     console.log(`then of calculateMatches, user: ${matches}`);
                     newUser.matches = matches;
-                    DB.updateUser(userId, newUser);
-                    newUser._id = userId;
+                    DB.getUser(userId).then((user) => {
+                        console.log(`then of getUser, user: ${user}`);
+                        if (user) {
+                            newUser.email = user.email;
+                            newUser.password = user.password;
+                        } 
+                        DB.updateUser(userId, newUser);
+                        res.redirect('/?id=' + userId);
+                        // res.json({status: true, data: newUser});
+
+                    });
                     // DB.addUser(newUser);
                     // res.redirect('/');
-                    res.json({status: true, data: newUser});
                 })
             })
         });                    

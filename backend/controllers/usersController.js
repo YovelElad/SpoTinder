@@ -36,6 +36,8 @@ const getUserById_not_in_use = (req, res) => {
 };
 
 const createUser = (req, res) => {
+  console.log(`create user req.body: ${req}`);
+  console.log(req);
   const user = new User(req.body);
   user.save((err, user) => {
     if (err) {
