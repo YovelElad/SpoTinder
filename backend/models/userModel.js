@@ -5,9 +5,10 @@ const userSchema = new Schema({
     email:{type:String},
     country:{type:String},
     image:{type:String},
-    spotifyId:{type:String},
+    id:{type:String},
     topArtists:{type:Array},
     topTracks:{type:Array},
+    matches:{type:Array},
     token:{type:String},
     refreshToken:{type:String}
 },{collection:'users'});
