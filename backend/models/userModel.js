@@ -10,6 +10,7 @@ const userSchema = new Schema({
     topArtists:{type:Array},
     topTracks:{type:Array},
     matches:{type:Array},
+    likedMe:{type:Array},
     token:{type:String},
     refreshToken:{type:String}
 },{collection:'users'});
