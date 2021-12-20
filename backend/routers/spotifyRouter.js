@@ -4,6 +4,6 @@ const spotifyController = require('../controllers/spotifyController');
 const spotifyRouter = new Router();
 
 spotifyRouter.get('/callback', spotifyController.callback);
-spotifyRouter.get('/login', spotifyController.login);
+spotifyRouter.get('/login/:userId', spotifyController.login);
 
 module.exports = {spotifyRouter: spotifyRouter};
