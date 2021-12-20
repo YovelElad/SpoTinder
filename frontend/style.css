@@ -1,0 +1,274 @@
+/* #body {
+    width: 1000px;
+    position: relative;
+}
+
+#wrapper {
+    width: 700px;
+    margin: 100px auto;
+    background-color: #eeeeee;
+    position: relative;
+}
+
+form {
+    width: 100%;
+    background-color: #505050;
+    height: 500px;
+    position: relative;
+}
+
+#signUpWithSpotifyButton {
+    border-radius: 30px;
+    height: 50px;
+    position: absolute;
+    margin: auto;
+    position: relative;
+    display: flex;
+}
+  
+  .vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
+  #test {
+      position: relative;
+      
+  } */
+
+
+/* 
+
+
+  body {
+    background-color: #FFEBEE
+}
+
+.card {
+    width: 400px;
+    background-color: #fff;
+    border: none;
+    border-radius: 12px
+}
+
+label.radio {
+    cursor: pointer;
+    width: 100%
+}
+
+label.radio input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    pointer-events: none
+}
+
+label.radio span {
+    padding: 7px 14px;
+    border: 2px solid #eee;
+    display: inline-block;
+    color: #039be5;
+    border-radius: 10px;
+    width: 100%;
+    height: 48px;
+    line-height: 27px
+}
+
+label.radio input:checked+span {
+    border-color: #039BE5;
+    background-color: #81D4FA;
+    color: #fff;
+    border-radius: 9px;
+    height: 48px;
+    line-height: 27px
+}
+
+.form-control {
+    margin-top: 10px;
+    height: 48px;
+    border: 2px solid #eee;
+    border-radius: 10px
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border: 2px solid #039BE5
+}
+
+.agree-text {
+    font-size: 12px
+}
+
+.terms {
+    font-size: 12px;
+    text-decoration: none;
+    color: #039BE5
+}
+
+.confirm-button {
+    height: 50px;
+    border-radius: 10px
+} */
+
+#register .card {
+    height: 200px;
+    width: 300px;
+}
+
+form {
+    top: 600px;
+    justify-content: center;
+}
+
+form>a {
+    background-color: #1DB954;
+    color: #fff;
+    text-decoration: none;
+    width: 70%;
+    display: block;
+    position: relative;
+    justify-content: space-evenly;
+    display: flex;
+    height: 30px;
+    border-radius: 30px;
+    margin: auto;
+    top: 50px;
+}
+
+form>a:hover {
+    color: #000;
+    background-color: #fff;
+    border: 1px;
+    border-color: #1DB954;
+    border-style: solid;
+}
+
+body {
+    background-color: #eee
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.card {
+    width: 360px;
+    height: 370px;
+    background-color: #fff;
+    border-radius: 10px;
+    border: none;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    position: relative;
+}
+
+.form {
+    margin-top: 15px
+}
+
+form button {
+    background-color: #1DB954;
+    color: #fff;
+    width: 70%;
+    display: block;
+    position: relative;
+    border-radius: 30px;
+    margin: auto;
+    top: 50px;
+    height: 30px;
+    border: none;
+}
+
+.form label {
+    font-weight: 700;
+    font-size: 14px
+}
+
+.form input {
+    height: 45px;
+    border: 2px solid #eee;
+    transition: all 0.9s
+}
+
+.form input:focus {
+    box-shadow: none;
+    border: 2px solid #2541B2
+}
+
+.social-button {
+    height: 45px;
+    background-color: #2541B2;
+    /* border-radius: 30px; */
+}
+
+.login-button {
+    margin-top: 15px
+}
+
+.login-button button {
+    height: 45px
+}
+
+#mainList {
+    position: relative;
+    top: 200px;
+}
+
+#mainList #listUl li {
+    list-style-type: none;
+    /* justify-content: space-evenly; */
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 60px;
+}
+
+
+/* #mainList #listUl button {
+    display: block;
+    float: right;
+  } */
+
+#mainList #listUl .unlike {
+    display: block;
+    float: right;
+    position: absolute;
+    right: 10px;
+    direction: ltr;
+    top: 10px;
+}
+
+#mainList #listUl .like {
+    display: block;
+    float: right;
+    position: absolute;
+    right: 90px;
+    top: 10px;
+}
+
+#mainList h1 {
+    /* position: absolute; */
+}
+
+#mainList #listUl li span {
+    position: absolute;
+    left: 60px;
+    top: 18px;
+}
+
+#mainList #listUl li img {
+    border-radius: 30px;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
