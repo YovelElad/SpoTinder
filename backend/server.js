@@ -10,7 +10,7 @@ var cors = require('cors')
 var credentials = {
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    redirectUri: process.env.REDIRECT_URI 
+    redirectUri: process.env.REDIRECT_URI
 };
 
 const { usersRouter } = require('./routers/usersRouter');
@@ -25,7 +25,7 @@ app.use('/users', usersRouter);
 app.use('/spotify', spotifyRouter);
 
 app.all('*', (req, res) => {
-    res.json({status: false, message: 'Route not found'});
+    res.json({ status: false, message: 'Route not found' });
     // res.sendFile(__dirname + '/frontend/404.html');
 });
 
@@ -58,7 +58,7 @@ app.listen(port, () => {
 //                 res.send(`<h1>Successfully logged in as ${newUser.name}!</h1>`);
 //             })
 //         });
-            
+
 //             /*
 //             .then((user) => {
 //                 console.log("in then, user id= " + user.id);
@@ -69,7 +69,7 @@ app.listen(port, () => {
 //                 });
 //             });
 //             */
-            
+
 //         // } catch (err) {
 //         //     res.send('<h1>Login Error: ' + err.message + '</h1><br><a href="/setUp/' + req.query.id + '">Try again</a>');
 //         // }
@@ -187,7 +187,7 @@ app.listen(port, () => {
 // //         console.log('The token expires in ' + data.body['expires_in']);
 // //         console.log('The access token is ' + data.body['access_token']);
 // //         console.log('The refresh token is ' + data.body['refresh_token']);
-    
+
 // //         // Set the access token on the API object to use it in later calls
 // //         spotifyApi.setAccessToken(data.body['access_token']);
 // //         spotifyApi.setRefreshToken(data.body['refresh_token']);
@@ -205,7 +205,7 @@ app.listen(port, () => {
 // //         });
 
 // //       });
-    
+
 // //     res.send('Hello World!');
 // // });
 
@@ -213,4 +213,3 @@ app.listen(port, () => {
 
 // // var authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);
 // // console.log(authorizeURL);
-  

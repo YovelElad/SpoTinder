@@ -1,0 +1,86 @@
+body {
+    justify-content: center;
+}
+
+#personalDetails {
+    display: flex;
+    justify-content: center;
+    width: 700px;
+    background-color: blanchedalmond;
+    margin: auto;
+}
+
+.card {
+    width: 700px;
+    height: 800px;
+}
+
+#mainDetails {
+    width: 350px;
+    height: 600px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+#moreDetails {
+    width: 350px;
+    height: 600px;
+    justify-content: center;
+    /* display: flex; */
+    align-items: center;
+}
+
+h1 {
+    position: absolute;
+    top: 140px;
+    /* left: 100px; */
+}
+
+img {
+    border-radius: 300px;
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    top: 250px;
+    /* left: 130px; */
+}
+
+#moreDetails {
+    position: relative;
+    top: 80px;
+}
+
+#moreDetails #artists {
+    width: 350px;
+    height: 200px;
+}
+
+#moreDetails #tracks {
+    width: 350px;
+    height: 300px;
+    /* justify-content: center; */
+}
+
+#moreDetails>#tracks>h6 {
+    /* position: absolute; */
+    display: block;
+    /* top: 90px; */
+    /* left: 20px; */
+}
+
+#ulArtists {
+    position: absolute;
+    /* left: 60px; */
+    /* top: 70px; */
+}
+
+#moreDetails #ulTracks {
+    /* position: absolute; */
+    /* left: 60px; */
+    /* top: 100px; */
+}
+
+#moreDetails #tracksTitle {
+    /* position: absolute; */
+}
