@@ -36,47 +36,78 @@ const getUserById_not_in_use = (req, res) => {
     });
 };
 
-const createUser = (req, res) => {
+// const createUser = (req, res) => {
 
+//     const newUser = new User(req.body);
+//     User.findOne({ email: req.body.email }, (err, user) => {
+//         if (err) {
+//             res.json({ status: false, message: err });
+//         } else {
+//             if (user) {
+//                 console.log(user);
+//                 res.json({ status: false, message: "User already exists" });
+//             } else {
+//                 newUser.save((err, user) => {
+//                     if (err) {
+//                         res.json({ status: false, message: err });
+//                     } else {
+//                         if (user) {
+//                             res.json({ status: false, message: "User already exists" });
+//                         } else {
+//                             newUser.save((err, user) => {
+//                                 if (err) {
+
+//                                     res.json({ status: false, message: err });
+//                                 } else {
+//                                     if (user) {
+//                                         res.json({ status: false, message: "User already exists" });
+//                                     } else {
+//                                         user.save((err, user) => {
+//                                             if (err) {
+//                                                 res.json({ status: false, message: err });
+//                                             } else {
+//                                                 res.json({ status: true, data: user });
+//                                             }
+//                                         });
+
+//                                     }
+//                                 }
+
+//                             });
+//                         }
+//                     }
+
+//                 });
+//             };
+//         };
+//     });
+// };
+const createUser = (req, res) => {
     const newUser = new User(req.body);
     User.findOne({ email: req.body.email }, (err, user) => {
         if (err) {
             res.json({ status: false, message: err });
         } else {
             if (user) {
+                console.log(user);
                 res.json({ status: false, message: "User already exists" });
             } else {
                 newUser.save((err, user) => {
                     if (err) {
-
                         res.json({ status: false, message: err });
                     } else {
-                        if (user) {
-                            res.json({ status: false, message: "User already exists" });
-                        } else {
-                            newUser.save((err, user) => {
-                                if (err) {
-
-                                    res.json({ status: false, message: err });
-                                } else {
-                                    if (user) {
-                                        res.json({ status: false, message: "User already exists" });
-                                    } else {
-                                        user.save((err, user) => {
-                                            if (err) {
-                                                res.json({ status: false, message: err });
-                                            } else {
-                                                res.json({ status: true, data: user });
-                                            }
-                                        });
-
-                                    }
-                                }
-
-                            });
-                        }
+                        // if (user) {
+                        //     res.json({ status: false, message: "User already exists" });
+                        // } else {
+                        user.save((err, user) => {
+                            if (err) {
+                                res.json({ status: false, message: err });
+                            } else {
+                                res.json({ status: true, data: user });
+                            }
+                        });
                     }
-
+                    //}
                 });
             };
         };
@@ -125,9 +156,10 @@ const addMatch = (req, res) => {
 }
 
 const setGender = (req, res) => {
+    console.log("set gender");
     console.log(req.body.interestedIn[0]);
     console.log(req.body.interestedIn[1]);
-    User.findByIdAndUpdate(req.params.id, {
+    User.findByIdAndUpdate(req.params.userId, {
         $push: { interestedIn: req.body.interestedIn },
         gender: req.body.gender
     }, function(err, result) {

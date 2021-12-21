@@ -1,11 +1,19 @@
 form {
-    top: 600px;
+    /* top: 600px; */
     justify-content: center;
 }
 
 #register3 form {
     position: relative;
-    top: 50px;
+    /* top: 50px; */
+    /* left: 50px; */
+    /* width: 70%; */
+}
+
+#register3 .form-group {
+    /* background-color: blueviolet; */
+    left: 60px;
+    position: relative;
 }
 
 form>a,
@@ -38,8 +46,24 @@ body {
     background-color: rgb(194, 194, 194)
 }
 
-#register2 .card {
-    height: 200px;
+
+/* .container {
+    justify-content: center;
+
+} */
+
+.card {
+    height: 400px;
+    width: 350px;
+    margin: auto;
+    top: 70px;
+    /* background-color: blueviolet; */
+}
+
+#register3 .container .card {
+    height: 350px;
+    display: flex;
+    /* background-color: blueviolet; */
 }
 
 

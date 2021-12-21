@@ -1,5 +1,7 @@
 body {
     justify-content: center;
+    /* height: 1000px; */
+    padding-top: 100px;
 }
 
 #personalDetails {
@@ -8,6 +10,9 @@ body {
     width: 700px;
     background-color: blanchedalmond;
     margin: auto;
+    /* top: 100px; */
+    border-radius: 100px;
+    padding-left: 20px;
 }
 
 .card {
@@ -21,6 +26,7 @@ body {
     position: relative;
     display: flex;
     justify-content: center;
+    padding-top: 30px;
 }
 
 #moreDetails {
@@ -29,6 +35,8 @@ body {
     justify-content: center;
     /* display: flex; */
     align-items: center;
+    padding-left: 40px;
+    padding-top: 30px;
 }
 
 h1 {
