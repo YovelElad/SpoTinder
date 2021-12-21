@@ -19,7 +19,11 @@ async function getMatch(matchId) {
 
 async function like(e) {
     e.preventDefault();
-    const matchId = e.target.id.split("_")[0];
+    var target = e.target || e.srcElement;
+    while (target && !target.id) {
+        target = target.parentNode;
+    }
+    const matchId = target.id.split("_")[0];
     const match = await getMatch(matchId);
     if(match.firstUser == userId) {
         match.firstUserLiked = true;
@@ -50,7 +54,11 @@ async function like(e) {
 
 async function unlike(e) {
     e.preventDefault();
-    const matchId = e.target.id.split("_")[0];
+    var target = e.target || e.srcElement;
+    while (target && !target.id) {
+        target = target.parentNode;
+    }
+    const matchId = target.id.split("_")[0];
     console.log(matchId);
     const match = await getMatch(matchId);
     if(match.firstUser == userId) {
