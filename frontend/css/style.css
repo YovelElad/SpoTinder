@@ -38,31 +38,22 @@ body {
     background-color: rgb(194, 194, 194)
 }
 
-.container {
-    height: 600px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* top: -500px; */
-    /* background-color: aqua; */
-}
 
 #register2 .card {
     height: 200px;
 }
 
-.container .card {
+/* .container .card {
     width: 360px;
     height: 470px;
     background-color: #fff;
     border-radius: 10px;
-    /* border: none; */
     padding-top: 20px;
     padding-left: 20px;
     padding-right: 20px;
     position: relative;
     display: block;
-}
+} */
 
 .form {
     margin-top: 15px;

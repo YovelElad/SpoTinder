@@ -6,6 +6,7 @@ const app = express();
 const port = process.env.PORT || 8888;
 const api = require('./modules/spotifyAPI.js');
 const match = require('./modules/matching.js');
+const auth  = require('./modules/auth.js');
 var cors = require('cors')
 var credentials = {
     clientId: process.env.CLIENT_ID,
@@ -23,6 +24,7 @@ app.use(express.static('frontend'));
 
 app.use('/users', usersRouter);
 app.use('/spotify', spotifyRouter);
+app.post('/login', auth.login);
 
 app.all('*', (req, res) => {
     res.json({ status: false, message: 'Route not found' });
