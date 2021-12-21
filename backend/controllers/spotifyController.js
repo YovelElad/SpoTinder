@@ -46,7 +46,7 @@ callback = (req, res) => {
                             newUser.password = user.password;
                         } 
                         DB.updateUser(userId, newUser);
-                        res.redirect('/register3/?id=' + userId);
+                        res.redirect('/?id=' + userId);
                         // res.json({status: true, data: newUser});
 
                     });
