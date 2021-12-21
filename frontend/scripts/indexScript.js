@@ -11,12 +11,69 @@ async function getUser(userId) {
     return data.data;
 }
 
+async function getMatch(matchId) {
+    const response = await fetch(`${API_URL}/users/${userId}/matches/${matchId}`);
+    const data = await response.json();
+    return data.data;
+}
+
+async function like(e) {
+    e.preventDefault();
+    const matchId = e.target.id.split("_")[0];
+    const match = await getMatch(matchId);
+    if(match.firstUser == userId) {
+        match.firstUserLiked = true;
+    } else {
+        match.secondUserLiked = true;
+    }
+    $.ajax({
+        url: `${API_URL}/users/${userId}/matches/${matchId}`,
+        type: 'PUT',
+        data: match,
+        success: function(data) {
+            console.log(data);
+            if (data.status) {
+                alert("like noted");
+                window.location.reload();
+
+            } else {
+                alert(data.message);
+            }
+        }
+    });
+}
+
+async function unlike(e) {
+    e.preventDefault();
+    const matchId = e.target.id.split("_")[0];
+    const match = await getMatch(matchId);
+    if(match.firstUser == userId) {
+        match.firstUserLiked = false;
+    } else {
+        match.secondUserLiked = false;
+    }
+    $.ajax({
+        url: `${API_URL}/users/${userId}/matches/${matchId}`,
+        type: 'PUT',
+        data: match,
+        success: function(data) {
+            console.log(data);
+            if (data.status) {
+                alert("unlike noted");
+                window.location.reload();
+            } else {
+                alert(data.message);
+            }
+        }
+    });
+}
+
+
 async function buildRow(potentialMatch) {
     const row = document.createElement('li');
     const otherUserId = potentialMatch.firstUser == userId ? potentialMatch.secondUser : potentialMatch.firstUser;
-    console.log(otherUserId);
+    console.log(potentialMatch);
     const otherUser = await getUser(otherUserId);
-    console.log(otherUser);
     row.id = otherUserId;
     const image = document.createElement('img');
     image.src = otherUser.image;
@@ -28,22 +85,28 @@ async function buildRow(potentialMatch) {
     name.href = `personalDetails.html?id=${otherUserId}`;
     dataSpan.append(name);
     row.append(dataSpan);
-    const likeButton = document.createElement('button');
-    likeButton.id = otherUserId+"_like";
-    likeButton.classList.add("btn");
-    likeButton.classList.add("btn-outline-success");
-    likeButton.classList.add("pull-right");
-    likeButton.classList.add("like");
-    likeButton.innerHTML = "Like";
-    row.append(likeButton);
-    const unlikeButton = document.createElement('button');
-    unlikeButton.id = otherUserId+"_unlike";
-    unlikeButton.classList.add("btn");
-    unlikeButton.classList.add("btn-outline-danger");
-    unlikeButton.classList.add("pull-right");
-    unlikeButton.classList.add("unlike");
-    unlikeButton.innerHTML = "Unlike";
-    row.append(unlikeButton);
+    if((potentialMatch.firstUserLiked && potentialMatch.firstUser == userId) || (potentialMatch.secondUserLiked && potentialMatch.secondUser == userId)) {
+        const unlikeButton = document.createElement('button');
+        unlikeButton.id = potentialMatch._id+"_unlike";
+        unlikeButton.classList.add("btn");
+        unlikeButton.classList.add("btn-outline-danger");
+        unlikeButton.classList.add("pull-right");
+        unlikeButton.classList.add("unlike");
+        unlikeButton.innerHTML = "Unlike";
+        unlikeButton.addEventListener('click', unlike);
+        row.append(unlikeButton);
+    } else {
+        const likeButton = document.createElement('button');
+        likeButton.id = potentialMatch._id+"_like";
+        likeButton.classList.add("btn");
+        likeButton.classList.add("btn-outline-success");
+        likeButton.classList.add("pull-right");
+        likeButton.classList.add("like");
+        likeButton.innerHTML = "Like";
+        likeButton.addEventListener('click', like);
+        row.append(likeButton);
+    }
+
     return row;
 }
 
@@ -59,7 +122,6 @@ async function buildList(userPotentialMatches) {
         list.id = 'listUl';
         userPotentialMatches.forEach(async (user) => {
             const row = await buildRow(user);
-            console.log(row);
             list.append(row);
         });
         document.getElementById('list').append(list);
