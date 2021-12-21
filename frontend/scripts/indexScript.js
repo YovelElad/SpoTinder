@@ -33,7 +33,11 @@ async function like(e) {
         success: function(data) {
             console.log(data);
             if (data.status) {
-                alert("like noted");
+                if(match.firstUserLiked && match.secondUserLiked) {
+                    alert("It's A Match!");
+                } else {
+                    alert("like noted");
+                }
                 window.location.reload();
 
             } else {
@@ -105,6 +109,9 @@ async function buildRow(potentialMatch) {
         likeButton.innerHTML = "Like";
         likeButton.addEventListener('click', like);
         row.append(likeButton);
+    }
+    if(potentialMatch.firstUserLiked && potentialMatch.secondUserLiked) {
+        row.classList.add("match");
     }
 
     return row;
