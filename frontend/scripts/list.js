@@ -101,7 +101,8 @@ async function buildRow(potentialMatch) {
     const image = document.createElement('img');
     image.src = otherUser.image;
     image.classList.add('img-fluid','rounded-circle');
-    image.style.maxWidth = '70px';
+    image.style.width = '70px';
+    image.style.height = '70px';
     imageCell.append(image);
     row.append(imageCell);
     const nameCell = document.createElement('td');

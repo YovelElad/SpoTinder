@@ -48,7 +48,7 @@ callback = (req, res) => {
                                 console.log(`inserted ${docs.length} matches`);
                             }
                         });
-                        res.redirect('/index.html?id=' + userId);
+                        res.redirect('/list.html?id=' + userId);
 
                         });
                     })
