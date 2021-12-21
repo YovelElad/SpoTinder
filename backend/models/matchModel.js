@@ -6,8 +6,8 @@ const matchSchema = new Schema({
     score:{type:Number , required:true},
     mutualArtists:{type:Array, required:true, default:[]},
     mutualTracks:{type:Array, required:true, default:[]},
-    bothLiked:{type:Boolean, required:true, default:false},
-
+    firstUserLiked:{type:Boolean , required:true, default:false},
+    secondUserLiked:{type:Boolean , required:true, default:false},
 },{collection:'matches'});
 
 matchSchema.index({ firstUser: 1, secondUser: 1 }, { unique: true });

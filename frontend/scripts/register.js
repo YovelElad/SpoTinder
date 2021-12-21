@@ -7,7 +7,7 @@ $("#registerForm").submit(function(e) {
         gender: "",
         interestedIn: []
     };
-    console.log(formData);
+    // console.log(formData);
 
     $.ajax({
         url: this.action,
@@ -15,6 +15,7 @@ $("#registerForm").submit(function(e) {
         data: formData,
 
         success: function(data) {
+            console.log(data);
             if (data.status) {
 
                 // redirect to login page
