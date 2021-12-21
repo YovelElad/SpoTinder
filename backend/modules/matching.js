@@ -1,15 +1,20 @@
 const db = require('../data/index.js');
 
 
-async function calculateMatches(user) {
-    const userTopArtists = user.topArtists;
-    const userTopTracks = user.topTracks;
+async function calculateMatches(theUser) {
+    const userTopArtists = theUser.topArtists;
+    const userTopTracks = theUser.topTracks;
     const userMatches = [];
     const users = await db.getUsers();
     users.forEach(async (user) => {
-        const matchScore = calculateMatchScore(user, userTopArtists, userTopTracks);
-        if (matchScore.score > 0.5) {
-            userMatches.push({user:user._id, score:matchScore.score, mutualArtists:matchScore.mutualArtists, mutualTracks:matchScore.mutualTracks});
+        if (theUser.id == user.id) {
+            return;
+        }
+        if(user.interestedIn.includes(theUser.gender) && theUser.interestedIn.includes(user.gender)) {
+            const matchScore = calculateMatchScore(user, userTopArtists, userTopTracks);
+            if (matchScore.score > 0.5) {
+                userMatches.push({user:user._id, score:matchScore.score, mutualArtists:matchScore.mutualArtists, mutualTracks:matchScore.mutualTracks});
+            }
         }
     });
     userMatches.sort((a,b) => b.score - a.score);

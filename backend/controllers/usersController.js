@@ -47,29 +47,44 @@ const createUser = (req, res) => {
                 res.json({ status: false, message: "User already exists" });
             } else {
                 newUser.save((err, user) => {
-                        if (err) {
+                    if (err) {
 
-                            res.json({ status: false, message: err });
+                        res.json({ status: false, message: err });
+                    } else {
+                        if (user) {
+                            res.json({ status: false, message: "User already exists" });
                         } else {
-                            if (user) {
-                                res.json({ status: false, message: "User already exists" });
-                            } else {
-                                user.save((err, user) => {
-                                    if (err) {
-                                        res.json({ status: false, message: err });
+                            newUser.save((err, user) => {
+                                if (err) {
+
+                                    res.json({ status: false, message: err });
+                                } else {
+                                    if (user) {
+                                        res.json({ status: false, message: "User already exists" });
                                     } else {
-                                        res.json({ status: true, data: user });
+                                        user.save((err, user) => {
+                                            if (err) {
+                                                res.json({ status: false, message: err });
+                                            } else {
+                                                res.json({ status: true, data: user });
+                                            }
+                                        });
+
                                     }
-                                });
+                                }
 
-                            }
-                        });
+                            });
+                        }
+                    }
 
-                }
-            }
-        }
-    })
-}
+                });
+            };
+        };
+    });
+};
+
+
+
 const updateUser = (req, res) => {
     User.findByIdAndUpdate(req.params.userId, req.body, (err, user) => {
         if (err) {
