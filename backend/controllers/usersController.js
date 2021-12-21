@@ -37,6 +37,11 @@ const getUserById_not_in_use = (req, res) => {
 };
 
 const createUser = (req, res) => {
+<<<<<<< HEAD
+    const user = new User(req.body);
+    User.findOne({ email: req.body.email }, (err, user) => {
+        if (err) {
+=======
   const newUser = new User(req.body);
   User.findOne({ email: req.body.email }, (err, user) => {
     if (err) {
@@ -47,13 +52,22 @@ const createUser = (req, res) => {
       } else {
         newUser.save((err, user) => {
           if (err) {
+>>>>>>> master
             res.json({ status: false, message: err });
-          } else { 
-            res.json({ status: true, data: user });
-          }
-        });
-      }
-  }});
+        } else {
+            if (user) {
+                res.json({ status: false, message: "User already exists" });
+            } else {
+                user.save((err, user) => {
+                    if (err) {
+                        res.json({ status: false, message: err });
+                    } else {
+                        res.json({ status: true, data: user });
+                    }
+                });
+            }
+        }
+    });
 };
 
 const updateUser = (req, res) => {
@@ -95,6 +109,17 @@ const addMatch = (req, res) => {
     })
 }
 
+const setGender = (req, res) => {
+    console.log(req.body.interestedIn[0]);
+    console.log(req.body.interestedIn[1]);
+    User.findByIdAndUpdate(req.params.id, {
+        $push: { interestedIn: req.body.interestedIn },
+        gender: req.body.gender
+    }, function(err, result) {
+        res.json(result);
+    })
+}
+
 module.exports = {
     getAllUsers,
     getUserById,
@@ -103,4 +128,5 @@ module.exports = {
     deleteUser,
     addLike,
     addMatch,
+    setGender,
 };
