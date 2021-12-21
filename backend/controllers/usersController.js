@@ -48,24 +48,15 @@ const createUser = (req, res) => {
         newUser.save((err, user) => {
           if (err) {
             res.json({ status: false, message: err });
-        } else {
-            if (user) {
-                res.json({ status: false, message: "User already exists" });
             } else {
-                user.save((err, user) => {
-                    if (err) {
-                        res.json({ status: false, message: err });
-                    } else {
-                        res.json({ status: true, data: user });
-                    }
-                });
-            }
+                res.json({ status: true, data: user });
+            } 
+        }); 
         }
+    }
     });
 };
-  };
-});
-};
+       
 
 
 const updateUser = (req, res) => {
