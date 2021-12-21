@@ -8,7 +8,6 @@ async function calculateMatches(user) {
     const users = await db.getUsers();
     users.forEach(async (user) => {
         const matchScore = calculateMatchScore(user, userTopArtists, userTopTracks);
-        // if match score is greater than 0.5 add to matches
         if (matchScore.score > 0.5) {
             userMatches.push({user:user._id, score:matchScore.score, mutualArtists:matchScore.mutualArtists, mutualTracks:matchScore.mutualTracks});
         }
