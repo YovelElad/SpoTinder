@@ -82,6 +82,51 @@ const getUserById_not_in_use = (req, res) => {
 //         };
 //     });
 // };
+// const createUser = (req, res) => {
+//         const newUser = new User(req.body);
+//         User.findOne({ email: req.body.email }, (err, user) => {
+//                     if (err) {
+//             res.json({ status: false, message: err });
+// <<<<<<< HEAD
+//         } else {
+//             if (user) {
+//                 console.log(user);
+//                 res.json({ status: false, message: "User already exists" });
+//             } else {
+//                 newUser.save((err, user) => {
+//                     if (err) {
+//                         res.json({ status: false, message: err });
+//                     } else {
+//                         // if (user) {
+//                         //     res.json({ status: false, message: "User already exists" });
+//                         // } else {
+//                         user.save((err, user) => {
+//                             if (err) {
+//                                 res.json({ status: false, message: err });
+//                             } else {
+//                                 res.json({ status: true, data: user });
+//                             }
+//                         });
+//                     }
+//                     //}
+//                 });
+//             };
+//         };
+//     });
+// };
+
+// =======
+//             } else {
+//                 res.json({ status: true, data: user });
+//             } 
+//         }); 
+//         }
+//     }
+//     });
+// };
+
+// >>>>>>> master
+
 const createUser = (req, res) => {
     const newUser = new User(req.body);
     User.findOne({ email: req.body.email }, (err, user) => {
@@ -89,31 +134,19 @@ const createUser = (req, res) => {
             res.json({ status: false, message: err });
         } else {
             if (user) {
-                console.log(user);
                 res.json({ status: false, message: "User already exists" });
             } else {
                 newUser.save((err, user) => {
                     if (err) {
                         res.json({ status: false, message: err });
                     } else {
-                        // if (user) {
-                        //     res.json({ status: false, message: "User already exists" });
-                        // } else {
-                        user.save((err, user) => {
-                            if (err) {
-                                res.json({ status: false, message: err });
-                            } else {
-                                res.json({ status: true, data: user });
-                            }
-                        });
+                        res.json({ status: true, data: user });
                     }
-                    //}
                 });
-            };
-        };
+            }
+        }
     });
 };
-
 
 
 const updateUser = (req, res) => {

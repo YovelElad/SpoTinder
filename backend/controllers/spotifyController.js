@@ -1,5 +1,6 @@
 const api = require('../modules/spotifyAPI');
 const User = require("../models/userModel");
+const Match = require("../models/matchModel");
 const matchEngine = require('../modules/matching');
 const DB = require('../data/index');
 
@@ -31,8 +32,13 @@ callback = (req, res) => {
                 console.log(`then of buildUserProfile, user: ${newUser}`);
                 matchEngine.calculateMatches(newUser).then((matches) => {
                     console.log(`then of calculateMatches, user: ${matches}`);
-                    newUser.potentialMatches = matches;
-                    console.log(`cascaded matches`);                   
+                    Match.insertMany(matches, (err, docs) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log(`inserted ${docs.length} matches`);
+                        }
+                    });
                     DB.getUser(userId).then((user) => {
                         console.log(`then of getUser, user: ${user.id}`);
                         if (user) {
@@ -40,9 +46,7 @@ callback = (req, res) => {
                             newUser.password = user.password;
                         } 
                         DB.updateUser(userId, newUser);
-                        
-                        cascadeMatches(matches, userId);
-                        res.redirect('/?id=' + userId);
+                        res.redirect('/register3/?id=' + userId);
                         // res.json({status: true, data: newUser});
 
                     });
