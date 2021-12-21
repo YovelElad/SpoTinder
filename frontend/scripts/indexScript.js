@@ -1,21 +1,83 @@
-//Get the user id from url
-let id = 0;
-const sPageURL = window.location.search.substring(1);
-console.log(sPageURL);
-let sURLVariables = sPageURL.split('&'),
-    sParameterName = "",
-    i = 0;
-console.log(sURLVariables);
-for (i = 0; i < sURLVariables.length; i++) {
-    sParameterName = sURLVariables[i].split('=');
-    console.log(sParameterName[1]);
-    id = sParameterName[1];
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const userId = urlParams.get('id');
+console.log("id=" + userId);
 
+console.log(API_URL);
+
+async function getUser(userId) {
+    const response = await fetch(`${API_URL}/users/${userId}`);
+    const data = await response.json();
+    return data.data;
 }
 
-console.log("id=" + id);
+async function buildRow(potentialMatch, color) {
+    const row = document.createElement('li');
+    const otherUserId = potentialMatch.firstUser == userId ? potentialMatch.secondUser : potentialMatch.firstUser;
+    console.log(otherUserId);
+    const otherUser = await getUser(otherUserId);
+    console.log(otherUser);
+    row.id = otherUserId;
+    const image = document.createElement('img');
+    image.src = otherUser.image;
+    row.append(image);
+    const dataSpan = document.createElement('span');
+    dataSpan.classList.add("dataSpan");
+    const name = document.createElement('a');
+    name.innerHTML = otherUser.name;
+    name.href = `personalDetails.html?id=${otherUserId}`;
+    dataSpan.append(name);
+    row.append(dataSpan);
+    const likeButton = document.createElement('button');
+    likeButton.id = otherUserId+"_like";
+    likeButton.classList.add("btn");
+    likeButton.classList.add("btn-outline-success");
+    likeButton.classList.add("pull-right");
+    likeButton.classList.add("like");
+    likeButton.innerHTML = "Like";
+    row.append(likeButton);
+    const unlikeButton = document.createElement('button');
+    unlikeButton.id = otherUserId+"_unlike";
+    unlikeButton.classList.add("btn");
+    unlikeButton.classList.add("btn-outline-danger");
+    unlikeButton.classList.add("pull-right");
+    unlikeButton.classList.add("unlike");
+    unlikeButton.innerHTML = "Unlike";
+    row.append(unlikeButton);
+    return row;
+}
 
 
+async function buildList(userPotentialMatches) {
+    console.log(userPotentialMatches);
+    if (userPotentialMatches.length == 0) {
+        const noMatches = document.createElement('p');
+        noMatches.innerHTML = "No matches found 😢";
+        $("#list").html(noMatches);
+    } else {
+        const list = document.createElement('ul');
+        list.id = 'listUl';
+        userPotentialMatches.forEach(async (user) => {
+            const row = await buildRow(user, "list");
+            console.log(row);
+            list.append(row);
+        });
+        document.getElementById('list').append(list);
+    }
+}
+
+
+
+$.ajax({
+    url: `${API_URL}/users/${userId}`,
+    type: "GET",
+    success: function(data) {
+        buildList(data.data.potentialMatches || []);
+    },
+    dataType: "JSON"
+  });
+
+/*
 
 $.ajax({
     type: 'GET',
@@ -130,7 +192,7 @@ $.ajax({
     }
 });
 
-
+*/
 
 
 // $.ajax({
