@@ -13,6 +13,7 @@ async function calculateMatches(theUser) {
         }
         if((user.interestedIn.includes(theUser.gender) && theUser.interestedIn.includes(user.gender))) {
             const matchScore = calculateMatchScore(user, userTopArtists, userTopTracks);
+            console.log(matchScore.score);
             if (matchScore.score > 0.5) {
                 userMatches.push({firstUser:theUser.id, secondUser: user._id,score:matchScore.score, mutualArtists:matchScore.mutualArtists, mutualTracks:matchScore.mutualTracks});
             }
@@ -29,7 +30,10 @@ function calculateMatchScore(user, userTopArtists, userTopTracks) {
     let matchScore = 0;
     const artistsMatch = userTopArtists.filter(artist => userTopArtistsNames.includes(artist));
     const tracksMatch = userTopTracks.filter(track => userTopTracksNames.includes(track));
-    matchScore = ((artistsMatch.length + tracksMatch.length) / (userTopArtists.length + userTopTracks.length));
+    const artistAvailable = Math.min(userTopArtistsNames.length, userTopArtists.length);
+    const trackAvailable = Math.min(userTopTracksNames.length, userTopTracks.length);
+    console.log(`artistAvailable: ${artistAvailable}, trackAvailable: ${trackAvailable}`);
+    matchScore = ((artistsMatch.length + tracksMatch.length) / (artistAvailable + trackAvailable));
     return {
         score: matchScore,
         mutualArtists: artistsMatch,
