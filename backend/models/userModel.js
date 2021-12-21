@@ -9,8 +9,7 @@ const userSchema = new Schema({
     id:{type:String},
     topArtists:{type:Array},
     topTracks:{type:Array},
-    matches:{type:Array},
-    likedMe:{type:Array},
+    potentialMatches:{type:Array},
     token:{type:String},
     refreshToken:{type:String}
 },{collection:'users'});

@@ -9,7 +9,7 @@ async function cascadeMatches(matches, userId) {
     matches.forEach((match) => {
         const matchToPush = {...match};
         matchToPush.user = userId;
-        User.findOneAndUpdate({"_id":match.user}, {$push: {matches: matchToPush}}, (err, user) => {
+        User.findOneAndUpdate({"_id":match.user}, {$push: {potentialMatches: matchToPush}}, (err, user) => {
             if (err) {
                 console.log(err);
             } else {
@@ -31,7 +31,7 @@ callback = (req, res) => {
                 console.log(`then of buildUserProfile, user: ${newUser}`);
                 matchEngine.calculateMatches(newUser).then((matches) => {
                     console.log(`then of calculateMatches, user: ${matches}`);
-                    newUser.matches = matches;
+                    newUser.potentialMatches = matches;
                     console.log(`cascaded matches`);                   
                     DB.getUser(userId).then((user) => {
                         console.log(`then of getUser, user: ${user.id}`);

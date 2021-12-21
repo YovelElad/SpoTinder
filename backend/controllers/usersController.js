@@ -1,6 +1,5 @@
 const User = require("../models/userModel");
 const DB = require("../data/index");
-const { findByIdAndUpdate } = require("../models/userModel");
 
 const getAllUsers = (req, res) => {
     User.find({}, (err, users) => {
@@ -14,7 +13,7 @@ const getAllUsers = (req, res) => {
 };
 
 const getUserById = (req, res) => {
-    User.findById(req.params.id, (err, user) => {
+    User.findById(req.params.userId, (err, user) => {
         if (err) {
             res.json({ status: false, message: err });
         } else {
@@ -28,7 +27,7 @@ const getUserById = (req, res) => {
 };
 
 const getUserById_not_in_use = (req, res) => {
-    User.findOne({ id: req.params.id }, (err, user) => {
+    User.findOne({ id: req.params.userId }, (err, user) => {
         if (err) {
             res.json({ status: false, message: err });
         } else {
@@ -38,7 +37,7 @@ const getUserById_not_in_use = (req, res) => {
 };
 
 const createUser = (req, res) => {
-  const user = new User(req.body);
+  const newUser = new User(req.body);
   User.findOne({ email: req.body.email }, (err, user) => {
     if (err) {
       res.json({ status: false, message: err });
@@ -46,7 +45,7 @@ const createUser = (req, res) => {
       if (user) {
         res.json({ status: false, message: "User already exists" });
       } else {
-        user.save((err, user) => {
+        newUser.save((err, user) => {
           if (err) {
             res.json({ status: false, message: err });
           } else { 
@@ -58,7 +57,7 @@ const createUser = (req, res) => {
 };
 
 const updateUser = (req, res) => {
-    User.findByIdAndUpdate(req.params.id, req.body, (err, user) => {
+    User.findByIdAndUpdate(req.params.userId, req.body, (err, user) => {
         if (err) {
             res.json({ status: false, message: err });
         } else {
@@ -68,7 +67,7 @@ const updateUser = (req, res) => {
 };
 
 const deleteUser = (req, res) => {
-    User.findByIdAndRemove(req.params.id, (err, user) => {
+    User.findByIdAndRemove(req.params.userId, (err, user) => {
         if (err) {
             res.json({ status: false, message: err });
         } else {
@@ -78,10 +77,10 @@ const deleteUser = (req, res) => {
 };
 
 const addLike = (req, res) => {
-    console.log(req.params.id);
+    console.log(req.params.userId);
     console.log(req.body.id);
 
-    User.findByIdAndUpdate(req.params.id, {
+    User.findByIdAndUpdate(req.params.userId, {
         $push: { likedMe: req.body.id },
     }, function(err, result) {
         res.json(result);
@@ -89,7 +88,7 @@ const addLike = (req, res) => {
 }
 
 const addMatch = (req, res) => {
-    User.findByIdAndUpdate(req.params.id, {
+    User.findByIdAndUpdate(req.params.userId, {
         $push: { matches: req.body.id }
     }, function(err, result) {
         res.json(result);
