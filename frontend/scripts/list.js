@@ -43,8 +43,7 @@ async function like(e) {
                 window.location.reload();
 
             } else {
-                console.log(`URL:${API_URL}/users/${userId}/matches/${matchId}`,)
-                // alert(data.message);
+                alert(data.message);
             }
         }
     });
@@ -81,6 +80,15 @@ async function unlike(e) {
     });
 }
 
+function clickOnName(e) {
+    e.preventDefault();
+    var target = e.target || e.srcElement;
+    while (target && !target.id) {
+        target = target.parentNode;
+    }
+    const userId = target.id.split("_")[0];
+    window.location.href = `/frontend/personalDetails.html?id=${userId}`;
+}
 
 async function buildRow(potentialMatch) {
     console.log(potentialMatch);
@@ -99,6 +107,9 @@ async function buildRow(potentialMatch) {
     const nameCell = document.createElement('td');
     nameCell.classList.add("text-center", "align-middle");
     nameCell.innerHTML = otherUser.name;
+    nameCell.addEventListener("click", clickOnName);
+    nameCell.id = otherUserId + "_name";
+    nameCell.style.cursor = "pointer";
     row.append(nameCell);
     const scoreCell = document.createElement('td');
     scoreCell.classList.add("text-center", "align-middle");
