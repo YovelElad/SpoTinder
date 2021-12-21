@@ -11,7 +11,7 @@ async function getUser(userId) {
     return data.data;
 }
 
-async function buildRow(potentialMatch, color) {
+async function buildRow(potentialMatch) {
     const row = document.createElement('li');
     const otherUserId = potentialMatch.firstUser == userId ? potentialMatch.secondUser : potentialMatch.firstUser;
     console.log(otherUserId);
@@ -58,7 +58,7 @@ async function buildList(userPotentialMatches) {
         const list = document.createElement('ul');
         list.id = 'listUl';
         userPotentialMatches.forEach(async (user) => {
-            const row = await buildRow(user, "list");
+            const row = await buildRow(user);
             console.log(row);
             list.append(row);
         });
