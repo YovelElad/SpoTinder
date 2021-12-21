@@ -12,6 +12,7 @@ for (i = 0; i < sURLVariables.length; i++) {
 console.log("id=" + id);
 
 $("#completeRegisterForm").submit(function(e) {
+    console.log("nu maaaa");
     e.preventDefault();
     let preferences = [];
     $.each($("input[name='genderPreference']:checked"), function() {
@@ -22,16 +23,18 @@ $("#completeRegisterForm").submit(function(e) {
         interestedIn: preferences
 
     }
-    console.log(formData);
+    console.log("formData " + formData);
 
     $.ajax({
-        url: this.action + id,
-        type: this.method,
+        url: "http://localhost:8888/users/gender/" + id,
+        type: 'PUT',
         data: formData,
         success: function(data) {
-            if (data.status) {
-                window.location.href = "./index.html?id=" + id;
-            }
+            // if (data.status) {
+            console.log("url:" + "http://localhost:8888/users/gender/" + id);
+            console.log("status:" + data.status);
+            window.location.href = "./index.html?id=" + id;
+            // }
         }
     })
 })
