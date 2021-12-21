@@ -37,11 +37,6 @@ const getUserById_not_in_use = (req, res) => {
 };
 
 const createUser = (req, res) => {
-<<<<<<< HEAD
-    const user = new User(req.body);
-    User.findOne({ email: req.body.email }, (err, user) => {
-        if (err) {
-=======
   const newUser = new User(req.body);
   User.findOne({ email: req.body.email }, (err, user) => {
     if (err) {
@@ -52,7 +47,6 @@ const createUser = (req, res) => {
       } else {
         newUser.save((err, user) => {
           if (err) {
->>>>>>> master
             res.json({ status: false, message: err });
         } else {
             if (user) {
@@ -69,6 +63,10 @@ const createUser = (req, res) => {
         }
     });
 };
+  };
+});
+};
+
 
 const updateUser = (req, res) => {
     User.findByIdAndUpdate(req.params.userId, req.body, (err, user) => {
