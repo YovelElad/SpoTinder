@@ -38,10 +38,10 @@ body {
     background-color: rgb(194, 194, 194)
 }
 
-
 #register2 .card {
     height: 200px;
 }
+
 
 /* .container .card {
     width: 360px;
@@ -157,4 +157,9 @@ form button {
     position: absolute;
     left: 10px;
     top: 10px;
+}
+
+#mainList #listUl li a {
+    text-decoration: none;
+    color: black;
 }

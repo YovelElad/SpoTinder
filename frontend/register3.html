@@ -7,7 +7,7 @@
 
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
 
-    <script src="scripts.js"></script>
+
     <title>Sign Up3</title>
 </head>
 
@@ -28,19 +28,19 @@
 
 
 
-                <form action="./index.html" method="GET">
+                <form id="completeRegisterForm" action="http://localhost:8888/users/gender/" method="PUT">
                     <br>
                     <div class="form-group ">
 
                         <label class="mt-2">Gender</label></br>
                         <input class="form-check-input" type="radio" name="gender" id="maleRadio" value="male">
                         <label class="form-check-label" for="male">
-                        Male
-                    </label>
+                            Male
+                        </label>
                         <input class="form-check-input" type="radio" name="gender" id="femaleRadio" value="female">
                         <label class="form-check-label" for="female">
-                        Female
-                    </label> </br>
+                            Female
+                        </label> </br>
 
                         <label class="mt-3" for="exampleInputEmail1">Interested in</label></br>
                         <input type="checkbox" name="genderPreference" class="form-check-input mt-2" id="maleCheckBox" value="male" />
@@ -62,7 +62,7 @@
         </div>
     </div>
 
-
+    <script src="./scripts/completeRegister.js"></script>
 </body>
 
 </html>
