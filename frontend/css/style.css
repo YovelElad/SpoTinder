@@ -132,6 +132,10 @@ form button {
     top: 10px;
 }
 
+#listUl:nth-child(odd) {
+    background-color: #c9fada;
+}
+
 #mainList #listUl .like {
     display: block;
     float: right;
