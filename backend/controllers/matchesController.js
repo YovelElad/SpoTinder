@@ -1,4 +1,5 @@
 const Match = require('../models/matchModel');
+const mongoose = require('mongoose');
 
 const matchesController = {
     getAllMatchesOfUser: (req, res) => {
@@ -14,14 +15,18 @@ const matchesController = {
     },    
     getMatch: (req, res) => {
         const matchId = req.params.matchId;
-        Match.findById(matchId, (err, match) => {
+        const userId = req.params.userId;
+        Match.findOne({ _id: matchId, $or: [{ firstUser: userId }, { secondUser: userId }] }, (err, match) => {
             if (err) {
                 res.json({ status: false, message: err });
             } else {
-                res.json({ status: true, data: match });
+                if (match) {
+                    res.json({ status: true, data: match });
+                } else {
+                    res.json({ status: false, message: 'Match not found' });
+                }
             }
-        }
-        );
+        });
     },
     addNewMatch: (req, res) => {
         const match = new Match(req.body);
@@ -49,7 +54,12 @@ const matchesController = {
             if (err) {
                 res.json({ status: false, message: err });
             } else {
-                res.json({ status: true, data: match });
+                if (match) {
+                    res.json({ status: true, data: match });
+                }
+                else {
+                    res.json({ status: false, message: 'Match not found' });
+                }
             }
         });
     },
