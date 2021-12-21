@@ -10,6 +10,7 @@ usersRouter.put('/:id', usersController.updateUser);
 usersRouter.delete('/:id', usersController.deleteUser);
 usersRouter.put('/like/:id', usersController.addLike);
 usersRouter.put('/match/:id', usersController.addMatch);
+usersRouter.put('/gender/:id', usersController.setGender);
 
 
 module.exports = { usersRouter };

@@ -92,6 +92,13 @@ const addMatch = (req, res) => {
     })
 }
 
+const setGender = (req, res) => {
+    User.findByIdAndUpdate(req.params.id, {
+        $push: { interestedIn: req.params.interestedIn },
+        gender: req.body.gender
+    })
+}
+
 module.exports = {
     getAllUsers,
     getUserById,
@@ -100,4 +107,5 @@ module.exports = {
     deleteUser,
     addLike,
     addMatch,
+    setGender,
 };
