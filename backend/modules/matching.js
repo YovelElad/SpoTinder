@@ -7,9 +7,7 @@ async function calculateMatches(theUser) {
     const userTopTracks = theUser.topTracks;
     const userMatches = [];
     const users = await db.getUsers();
-    console.log(`users length: ${users.length}`);
     users.forEach(async (user) => {
-        console.log(`user id: ${user._id}`);
         if (theUser.id == user._id) {
             return;
         }

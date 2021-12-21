@@ -30,7 +30,16 @@ callback = (req, res) => {
                 console.log(`then of authorizeSpotify, user: ${user.id}`);
                 api.buildUserProfile(user).then((newUser) => {
                     console.log(`then of buildUserProfile, user: ${newUser}`);
-                    matchEngine.calculateMatches(newUser).then((matches) => {
+                    DB.getUser(userId).then((user) => {
+                        console.log(`then of getUser, user: ${user.id}`);
+                        if (user) {
+                            newUser.email = user.email;
+                            newUser.password = user.password;
+                            newUser.gender = user.gender;
+                            newUser.interestedIn = user.interestedIn;
+                        }
+                        DB.updateUser(userId, newUser);
+                        matchEngine.calculateMatches(newUser).then((matches) => {
                         console.log(`then of calculateMatches, user: ${matches}`);
                         Match.insertMany(matches, (err, docs) => {
                             if (err) {
@@ -39,19 +48,9 @@ callback = (req, res) => {
                                 console.log(`inserted ${docs.length} matches`);
                             }
                         });
-                        DB.getUser(userId).then((user) => {
-                            console.log(`then of getUser, user: ${user.id}`);
-                            if (user) {
-                                newUser.email = user.email;
-                                newUser.password = user.password;
-                            }
-                            DB.updateUser(userId, newUser);
-                            res.redirect('/index.html?id=' + userId);
-                            // res.json({status: true, data: newUser});
+                        res.redirect('/index.html?id=' + userId);
 
                         });
-                        // DB.addUser(newUser);
-                        // res.redirect('/');
                     })
                 })
             });

@@ -204,3 +204,7 @@ li:nth-of-type(odd) {
     text-decoration: none;
     color: black;
 }
+
+.match {
+    background-color: rgb(226, 102, 174) !important;
+}
