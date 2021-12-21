@@ -69,10 +69,10 @@ async function buildList(userPotentialMatches) {
 
 
 $.ajax({
-    url: `${API_URL}/users/${userId}`,
+    url: `${API_URL}/users/${userId}/matches`,
     type: "GET",
     success: function(data) {
-        buildList(data.data.potentialMatches || []);
+        buildList(data.data || []);
     },
     dataType: "JSON"
   });
