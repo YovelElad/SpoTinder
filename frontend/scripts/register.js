@@ -1,11 +1,15 @@
 $("#registerForm").submit(function(e) {
     e.preventDefault();
-    var formData = {
+    let preferences = [];
+    $.each($("input[name='genderPreference']:checked"), function() {
+        preferences.push($(this).val());
+    });
+    let formData = {
         username: $('#username').val(),
         password: $('#password').val(),
         email: $('#email').val(),
-        gender: "",
-        interestedIn: []
+        gender: $("input[name='gender']:checked").val(),
+        interestedIn: preferences
     };
     // console.log(formData);
 

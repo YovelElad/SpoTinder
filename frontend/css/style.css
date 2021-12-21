@@ -3,18 +3,17 @@ form {
     justify-content: center;
 }
 
-#register3 form {
-    position: relative;
-    /* top: 50px; */
-    /* left: 50px; */
-    /* width: 70%; */
-}
 
-#register3 .form-group {
-    /* background-color: blueviolet; */
+/* #register3 form {
+    position: relative;
+
+} */
+
+
+/* #register3 .form-group {
     left: 60px;
     position: relative;
-}
+} */
 
 form>a,
 #register1 form>button,
@@ -53,18 +52,18 @@ body {
 } */
 
 .card {
-    height: 400px;
+    height: 600px;
     width: 350px;
     margin: auto;
     top: 70px;
     /* background-color: blueviolet; */
 }
 
-#register3 .container .card {
+
+/* #register3 .container .card {
     height: 350px;
     display: flex;
-    /* background-color: blueviolet; */
-}
+} */
 
 
 /* .container .card {
@@ -80,7 +79,7 @@ body {
 } */
 
 .form {
-    margin-top: 15px;
+    /* margin-top: 15px; */
     /* background-color: aqua; */
 }
 
@@ -97,15 +96,29 @@ form button {
     border: none;
 }
 
+form .gender {
+    margin-left: 30px;
+}
+
 .form label {
     font-weight: 700;
     font-size: 14px
 }
 
-.form input {
+form input {
     height: 45px;
     border: 2px solid #eee;
-    transition: all 0.9s
+    transition: all 0.9s;
+    /* width: 90%; */
+}
+
+form .form-control {
+    /* width: 90%; */
+    margin: auto;
+}
+
+form>label {
+    margin-right: 20px;
 }
 
 .form input:focus {
