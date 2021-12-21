@@ -36,17 +36,23 @@ const getUserById_not_in_use = (req, res) => {
 };
 
 const createUser = (req, res) => {
-  console.log(`create user req.body: ${req}`);
-  console.log(req);
   const user = new User(req.body);
-  user.save((err, user) => {
+  User.findOne({ email: req.body.email }, (err, user) => {
     if (err) {
       res.json({ status: false, message: err });
     } else {
-        
-      res.json({ status: true, data: user });
-    }
-  });
+      if (user) {
+        res.json({ status: false, message: "User already exists" });
+      } else {
+        user.save((err, user) => {
+          if (err) {
+            res.json({ status: false, message: err });
+          } else { 
+            res.json({ status: true, data: user });
+          }
+        });
+      }
+  }});
 };
 
 const updateUser = (req, res) => {
