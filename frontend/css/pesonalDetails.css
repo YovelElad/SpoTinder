@@ -1,7 +1,11 @@
 body {
     justify-content: center;
     /* height: 1000px; */
-    padding-top: 100px;
+    /* padding-top: 100px; */
+}
+
+.container {
+    padding-top: 32px;
 }
 
 #personalDetails {
