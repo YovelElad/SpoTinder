@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const matchesController = {
     getAllMatchesOfUser: (req, res) => {
         const userId = req.params.userId;
-        Match.find({ $or: [{ firstUser: userId }, { secondUser: userId }] }, (err, matches) => {
+        Match.find({ $or: [{ firstUser: userId }, { secondUser: userId }] }, null, {sort:{score:-1}}, (err, matches) => {
             if (err) {
                 res.json({ status: false, message: err });
             } else {

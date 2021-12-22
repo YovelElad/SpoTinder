@@ -61,7 +61,6 @@ async function unlike(e) {
         target = target.parentNode;
     }
     const matchId = target.id.split("_")[0];
-    console.log(matchId);
     const match = await getMatch(matchId);
     if (match.firstUser == userId) {
         match.firstUserLiked = false;
@@ -124,7 +123,7 @@ async function buildRow(potentialMatch) {
     row.append(nameCell);
     const scoreCell = document.createElement('td');
     scoreCell.classList.add("text-center", "align-middle");
-    scoreCell.innerHTML = Math.floor(potentialMatch.score * 100) + "%";
+    scoreCell.innerHTML = Math.round(potentialMatch.score * 100) + "%";
     row.append(scoreCell);
     const favArtistCell = document.createElement('td');
     favArtistCell.classList.add("text-center", "align-middle");
@@ -138,8 +137,7 @@ async function buildRow(potentialMatch) {
     likeCell.classList.add("text-center", "align-middle");
     const likeButton = document.createElement('button');
     likeButton.id = potentialMatch._id + "_like";
-    console.log(likeButton.id);
-    if ((potentialMatch.firstUserLiked && potentialMatch.firstUser == userId) || (potentialMatch.secondUserLiked && potentialMatch.secondUser == userId)) {
+    if((potentialMatch.firstUserLiked && potentialMatch.firstUser == userId) || (potentialMatch.secondUserLiked && potentialMatch.secondUser == userId)) {
         likeButton.classList.add('btn', 'btn-danger');
         likeButton.innerHTML = FILLED_HEART_ICON;
         likeButton.addEventListener('click', unlike);
@@ -151,8 +149,7 @@ async function buildRow(potentialMatch) {
     likeCell.append(likeButton);
     row.append(likeCell);
 
-
-    if (potentialMatch.firstUserLiked && potentialMatch.secondUserLiked) {
+    if(potentialMatch.firstUserLiked && potentialMatch.secondUserLiked) {
         row.classList.add("match");
     }
     return row;
