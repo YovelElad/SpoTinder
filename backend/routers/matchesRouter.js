@@ -9,5 +9,4 @@ matchesRouter.post('/', matchesController.addNewMatch);
 matchesRouter.put('/:matchId', matchesController.updateMatch);
 matchesRouter.delete('/:matchId', matchesController.deleteMatch);
 
-
 module.exports = { matchesRouter: matchesRouter };

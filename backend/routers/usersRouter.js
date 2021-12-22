@@ -14,6 +14,4 @@ usersRouter.put('/like/:userId', usersController.addLike);
 usersRouter.put('/match/:userId', usersController.addMatch);
 usersRouter.put('/gender/:userId', usersController.setGender);
 
-
-
 module.exports = { usersRouter };
