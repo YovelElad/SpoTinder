@@ -23,7 +23,7 @@ async function like(e) {
     }
     const matchId = target.id.split("_")[0];
     const match = await getMatch(matchId);
-    if(match.firstUser == userId) {
+    if (match.firstUser == userId) {
         match.firstUserLiked = true;
     } else {
         match.secondUserLiked = true;
@@ -35,7 +35,7 @@ async function like(e) {
         success: function(data) {
             console.log(data);
             if (data.status) {
-                if(match.firstUserLiked && match.secondUserLiked) {
+                if (match.firstUserLiked && match.secondUserLiked) {
                     alert("It's A Match!");
                 } else {
                     alert("like noted");
@@ -43,7 +43,12 @@ async function like(e) {
                 window.location.reload();
 
             } else {
+                // <<<<<<< HEAD
+                //                 console.log(`URL:${API_URL}/users/${userId}/matches/${matchId}`, )
+                //                     // alert(data.message);
+                // =======
                 alert(data.message);
+
             }
         }
     });
@@ -57,7 +62,7 @@ async function unlike(e) {
     }
     const matchId = target.id.split("_")[0];
     const match = await getMatch(matchId);
-    if(match.firstUser == userId) {
+    if (match.firstUser == userId) {
         match.firstUserLiked = false;
     } else {
         match.secondUserLiked = false;
@@ -72,8 +77,8 @@ async function unlike(e) {
                 alert("unlike noted");
                 window.location.reload();
             } else {
-                console.log(`URL:${API_URL}/users/${userId}/matches/${matchId}`,)
-                // alert(data.message);
+                console.log(`URL:${API_URL}/users/${userId}/matches/${matchId}`, )
+                    // alert(data.message);
             }
         }
     });
@@ -99,9 +104,14 @@ async function buildRow(potentialMatch) {
     imageCell.classList.add("text-center", "align-middle");
     const image = document.createElement('img');
     image.src = otherUser.image;
-    image.classList.add('img-fluid','rounded-circle');
+    // <<<<<<< HEAD
+    //     image.classList.add('img-fluid', 'rounded-circle');
+    //     image.style.maxWidth = '70px';
+    // =======
+    image.classList.add('img-fluid', 'rounded-circle');
     image.style.width = '70px';
     image.style.height = '70px';
+
     imageCell.append(image);
     row.append(imageCell);
     const nameCell = document.createElement('td');
@@ -154,15 +164,16 @@ async function buildList(userPotentialMatches) {
         $("#list").html(noMatches);
     } else {
         const list = document.createElement('tbody');
-        userPotentialMatches.forEach((user) => {
-            buildRow(user).then(row=>list.append(row));
+        userPotentialMatches.forEach(async(user) => {
+            const row = await buildRow(user);
+            list.append(row);
         });
         document.getElementById('list').append(list);
     }
 }
 
 
-$(document).ready(async () => {
+$(document).ready(async() => {
     $.ajax({
         url: `${API_URL}/users/${userId}/matches`,
         type: "GET",
@@ -172,3 +183,9 @@ $(document).ready(async () => {
         dataType: "JSON"
     });
 });
+
+
+$("#profileLink").click(function() {
+    console.log("profile");
+    $(this).attr("href", "personalDetails.html?id=" + userId);
+})
