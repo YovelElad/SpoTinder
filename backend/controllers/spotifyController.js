@@ -29,7 +29,7 @@ callback = (req, res) => {
                 console.log(`inserted ${docs.length} matches`);
               }
             });
-            res.redirect("/list.html?id=" + userId);
+            res.redirect("http://localhost:5500/forntend/list.html?id=" + userId);
           });
         });
       });

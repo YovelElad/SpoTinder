@@ -43,10 +43,6 @@ async function like(e) {
                 window.location.reload();
 
             } else {
-                // <<<<<<< HEAD
-                //                 console.log(`URL:${API_URL}/users/${userId}/matches/${matchId}`, )
-                //                     // alert(data.message);
-                // =======
                 alert(data.message);
 
             }
@@ -176,6 +172,7 @@ $(document).ready(async() => {
         url: `${API_URL}/users/${userId}/matches`,
         type: "GET",
         success: function(data) {
+            console.log(data);
             buildList(data.data || []);
         },
         dataType: "JSON"
