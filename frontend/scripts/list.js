@@ -21,7 +21,7 @@ async function like(e) {
     e.preventDefault();
     const matchId = e.target.id.split("_")[0];
     const match = await getMatch(matchId);
-    if(match.firstUser == userId) {
+    if (match.firstUser == userId) {
         match.firstUserLiked = true;
     } else {
         match.secondUserLiked = true;
@@ -33,7 +33,7 @@ async function like(e) {
         success: function(data) {
             console.log(data);
             if (data.status) {
-                if(match.firstUserLiked && match.secondUserLiked) {
+                if (match.firstUserLiked && match.secondUserLiked) {
                     alert("It's A Match!");
                 } else {
                     alert("like noted");
@@ -41,8 +41,8 @@ async function like(e) {
                 window.location.reload();
 
             } else {
-                console.log(`URL:${API_URL}/users/${userId}/matches/${matchId}`,)
-                // alert(data.message);
+                console.log(`URL:${API_URL}/users/${userId}/matches/${matchId}`, )
+                    // alert(data.message);
             }
         }
     });
@@ -53,7 +53,7 @@ async function unlike(e) {
     const matchId = e.target.id.split("_")[0];
     console.log(matchId);
     const match = await getMatch(matchId);
-    if(match.firstUser == userId) {
+    if (match.firstUser == userId) {
         match.firstUserLiked = false;
     } else {
         match.secondUserLiked = false;
@@ -68,8 +68,8 @@ async function unlike(e) {
                 alert("unlike noted");
                 window.location.reload();
             } else {
-                console.log(`URL:${API_URL}/users/${userId}/matches/${matchId}`,)
-                // alert(data.message);
+                console.log(`URL:${API_URL}/users/${userId}/matches/${matchId}`, )
+                    // alert(data.message);
             }
         }
     });
@@ -86,7 +86,7 @@ async function buildRow(potentialMatch) {
     imageCell.classList.add("text-center", "align-middle");
     const image = document.createElement('img');
     image.src = otherUser.image;
-    image.classList.add('img-fluid','rounded-circle');
+    image.classList.add('img-fluid', 'rounded-circle');
     image.style.maxWidth = '70px';
     imageCell.append(image);
     row.append(imageCell);
@@ -111,7 +111,7 @@ async function buildRow(potentialMatch) {
     const likeButton = document.createElement('button');
     likeButton.id = potentialMatch._id + "_like";
     console.log(likeButton.id);
-    if((potentialMatch.firstUserLiked && potentialMatch.firstUser == userId) || (potentialMatch.secondUserLiked && potentialMatch.secondUser == userId)) {
+    if ((potentialMatch.firstUserLiked && potentialMatch.firstUser == userId) || (potentialMatch.secondUserLiked && potentialMatch.secondUser == userId)) {
         likeButton.classList.add('btn', 'btn-danger');
         likeButton.innerHTML = FILLED_HEART_ICON;
         likeButton.addEventListener('click', unlike);
@@ -124,7 +124,7 @@ async function buildRow(potentialMatch) {
     row.append(likeCell);
 
 
-    if(potentialMatch.firstUserLiked && potentialMatch.secondUserLiked) {
+    if (potentialMatch.firstUserLiked && potentialMatch.secondUserLiked) {
         row.classList.add("match");
     }
     return row;
@@ -139,7 +139,7 @@ async function buildList(userPotentialMatches) {
         $("#list").html(noMatches);
     } else {
         const list = document.createElement('tbody');
-        userPotentialMatches.forEach(async (user) => {
+        userPotentialMatches.forEach(async(user) => {
             const row = await buildRow(user);
             list.append(row);
         });
@@ -148,7 +148,7 @@ async function buildList(userPotentialMatches) {
 }
 
 
-$(document).ready(async () => {
+$(document).ready(async() => {
     $.ajax({
         url: `${API_URL}/users/${userId}/matches`,
         type: "GET",
@@ -158,3 +158,9 @@ $(document).ready(async () => {
         dataType: "JSON"
     });
 });
+
+
+$("#profileLink").click(function() {
+    console.log("profile");
+    $(this).attr("href", "personalDetails.html?id=" + userId);
+})

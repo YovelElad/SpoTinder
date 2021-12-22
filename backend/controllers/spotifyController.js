@@ -27,7 +27,7 @@ callback = (req, res) => {
         if (code) {
             const userId = req.query.state;
             api.authorizeSpotify(userId, code).then(user => {
-                console.log(`then of authorizeSpotify, user: ${user.id}`);
+                // console.log(`then of authorizeSpotify, user: ${user.id}`);
                 api.buildUserProfile(user).then((newUser) => {
                     console.log(`then of buildUserProfile, user: ${newUser}`);
                     DB.getUser(userId).then((user) => {
@@ -40,15 +40,15 @@ callback = (req, res) => {
                         }
                         DB.updateUser(userId, newUser);
                         matchEngine.calculateMatches(newUser).then((matches) => {
-                        console.log(`then of calculateMatches, user: ${matches}`);
-                        Match.insertMany(matches, (err, docs) => {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                console.log(`inserted ${docs.length} matches`);
-                            }
-                        });
-                        res.redirect('/index.html?id=' + userId);
+                            console.log(`then of calculateMatches, user: ${matches}`);
+                            Match.insertMany(matches, (err, docs) => {
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    console.log(`inserted ${docs.length} matches`);
+                                }
+                            });
+                            res.redirect('/index.html?id=' + userId);
 
                         });
                     })
