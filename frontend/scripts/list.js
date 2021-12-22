@@ -86,8 +86,8 @@ function clickOnName(e) {
     while (target && !target.id) {
         target = target.parentNode;
     }
-    const userId = target.id.split("_")[0];
-    window.location.href = `/personalDetails.html?id=${userId}`;
+    const targetUserId = target.id.split("_")[0];
+    window.location.href = `http://localhost:5500/frontend/personalDetails.html?id=${userId}&user=${targetUserId}`;
 }
 
 async function buildRow(potentialMatch) {
