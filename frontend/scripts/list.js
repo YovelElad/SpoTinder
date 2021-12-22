@@ -91,7 +91,7 @@ function clickOnName(e) {
         target = target.parentNode;
     }
     const userId = target.id.split("_")[0];
-    window.location.href = `/frontend/personalDetails.html?id=${userId}`;
+    window.location.href = `/personalDetails.html?id=${userId}`;
 }
 
 async function buildRow(potentialMatch) {
@@ -104,10 +104,6 @@ async function buildRow(potentialMatch) {
     imageCell.classList.add("text-center", "align-middle");
     const image = document.createElement('img');
     image.src = otherUser.image;
-    // <<<<<<< HEAD
-    //     image.classList.add('img-fluid', 'rounded-circle');
-    //     image.style.maxWidth = '70px';
-    // =======
     image.classList.add('img-fluid', 'rounded-circle');
     image.style.width = '70px';
     image.style.height = '70px';
@@ -164,9 +160,11 @@ async function buildList(userPotentialMatches) {
         $("#list").html(noMatches);
     } else {
         const list = document.createElement('tbody');
-        userPotentialMatches.forEach(async(user) => {
-            const row = await buildRow(user);
-            list.append(row);
+        userPotentialMatches.forEach((user) => {
+            buildRow(user).then((row) => {
+                list.append(row);
+            });
+
         });
         document.getElementById('list').append(list);
     }
