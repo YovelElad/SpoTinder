@@ -1,5 +1,3 @@
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
 const userId = urlParams.get('id');
 
 const EMPTY_HEART_ICON = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"><path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/></svg>';
@@ -19,7 +17,11 @@ async function getMatch(matchId) {
 
 async function like(e) {
     e.preventDefault();
-    const matchId = e.target.id.split("_")[0];
+    var target = e.target || e.srcElement;
+    while (target && !target.id) {
+        target = target.parentNode;
+    }
+    const matchId = target.id.split("_")[0];
     const match = await getMatch(matchId);
     if (match.firstUser == userId) {
         match.firstUserLiked = true;
@@ -41,8 +43,12 @@ async function like(e) {
                 window.location.reload();
 
             } else {
-                console.log(`URL:${API_URL}/users/${userId}/matches/${matchId}`, )
-                    // alert(data.message);
+                // <<<<<<< HEAD
+                //                 console.log(`URL:${API_URL}/users/${userId}/matches/${matchId}`, )
+                //                     // alert(data.message);
+                // =======
+                alert(data.message);
+
             }
         }
     });
@@ -50,7 +56,11 @@ async function like(e) {
 
 async function unlike(e) {
     e.preventDefault();
-    const matchId = e.target.id.split("_")[0];
+    var target = e.target || e.srcElement;
+    while (target && !target.id) {
+        target = target.parentNode;
+    }
+    const matchId = target.id.split("_")[0];
     console.log(matchId);
     const match = await getMatch(matchId);
     if (match.firstUser == userId) {
@@ -75,6 +85,15 @@ async function unlike(e) {
     });
 }
 
+function clickOnName(e) {
+    e.preventDefault();
+    var target = e.target || e.srcElement;
+    while (target && !target.id) {
+        target = target.parentNode;
+    }
+    const userId = target.id.split("_")[0];
+    window.location.href = `/frontend/personalDetails.html?id=${userId}`;
+}
 
 async function buildRow(potentialMatch) {
     console.log(potentialMatch);
@@ -86,13 +105,22 @@ async function buildRow(potentialMatch) {
     imageCell.classList.add("text-center", "align-middle");
     const image = document.createElement('img');
     image.src = otherUser.image;
+    // <<<<<<< HEAD
+    //     image.classList.add('img-fluid', 'rounded-circle');
+    //     image.style.maxWidth = '70px';
+    // =======
     image.classList.add('img-fluid', 'rounded-circle');
-    image.style.maxWidth = '70px';
+    image.style.width = '70px';
+    image.style.height = '70px';
+
     imageCell.append(image);
     row.append(imageCell);
     const nameCell = document.createElement('td');
     nameCell.classList.add("text-center", "align-middle");
     nameCell.innerHTML = otherUser.name;
+    nameCell.addEventListener("click", clickOnName);
+    nameCell.id = otherUserId + "_name";
+    nameCell.style.cursor = "pointer";
     row.append(nameCell);
     const scoreCell = document.createElement('td');
     scoreCell.classList.add("text-center", "align-middle");

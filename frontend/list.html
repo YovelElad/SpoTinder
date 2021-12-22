@@ -13,35 +13,35 @@
 
 <body>
     <div class="container">
-        <header>
-            <!-- <h1 class="text text-success text-center ">
-                SpoTinder
-            </h1>
-            <h6 class="text text-success text-center">
-                Dating app by music taste
-            </h6> -->
 
-            <nav class="navbar navbar-expand-lg navbar-light ">
-                <a class="navbar-brand navbar-custom" href="#">SpoTinder</a>
-                <div class="collapse navbar-collapse" id="navbarText">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">My Matches</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="profileLink" href="#" +>Profile</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" id="logo" href="#">
+                <img src="./images/logo_transparent_small.png" width="30" height="30" class="d-inline-block align-top" alt=""> SpoTinder
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" id="nav-home" href="#">Home</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" id="nav-myMatches" href="#">My Matches</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="nav-profile" href="#">Profile</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <br>
+
         <br>
         <h3>Your Potential Matches:</h3>
         <br>
         <div class="row">
+
             <div class="col-12">
                 <table class="table table-bordered" id="list">
                     <thead>
@@ -54,29 +54,15 @@
                             <th scope="col"></th>
                         </tr>
                     </thead>
-                    <!-- <tbody>
-                <tr>
-                  <td class="text-center align-middle"><img src="./images/shlomi.png"  class="img-thumbnail"></td>
-                  <td class="text-center align-middle" >Shlomi Azulai</td>
-                  <td class="text-center align-middle">89</td>
-                  <td class="text-center align-middle">Noa Kirel</td>
-                  <td class="text-center align-middle">Bohemian Rhapsody  </td>
-                  <td class="text-center align-middle">
-                    <button type="button" class="btn btn-primary">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                      </svg>
-                    </button>
-                  </td>
-                </tr>
-              </tbody> -->
                 </table>
             </div>
         </div>
     </div>
     <script src="./scripts/consts.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script defer src='./scripts/header.js'></script>
     <script defer src="./scripts/list.js"></script>
+
 </body>
 
 </html>

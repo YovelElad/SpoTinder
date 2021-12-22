@@ -40,6 +40,17 @@ callback = (req, res) => {
                         }
                         DB.updateUser(userId, newUser);
                         matchEngine.calculateMatches(newUser).then((matches) => {
+                            // <<<<<<< HEAD
+                            //                             console.log(`then of calculateMatches, user: ${matches}`);
+                            //                             Match.insertMany(matches, (err, docs) => {
+                            //                                 if (err) {
+                            //                                     console.log(err);
+                            //                                 } else {
+                            //                                     console.log(`inserted ${docs.length} matches`);
+                            //                                 }
+                            //                             });
+                            //                             res.redirect('/index.html?id=' + userId);
+                            // =======
                             console.log(`then of calculateMatches, user: ${matches}`);
                             Match.insertMany(matches, (err, docs) => {
                                 if (err) {
@@ -48,7 +59,8 @@ callback = (req, res) => {
                                     console.log(`inserted ${docs.length} matches`);
                                 }
                             });
-                            res.redirect('/index.html?id=' + userId);
+                            res.redirect('/list.html?id=' + userId);
+
 
                         });
                     })
