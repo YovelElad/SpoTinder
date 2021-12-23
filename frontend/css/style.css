@@ -1,19 +1,6 @@
 form {
-    /* top: 600px; */
     justify-content: center;
 }
-
-
-/* #register3 form {
-    position: relative;
-
-} */
-
-
-/* #register3 .form-group {
-    left: 60px;
-    position: relative;
-} */
 
 form>a,
 #register1 form>button,
@@ -45,42 +32,11 @@ body {
     background-color: rgb(194, 194, 194)
 }
 
-
-/* .container {
-    justify-content: center;
-
-} */
-
 .card {
     height: 600px;
     width: 350px;
     margin: auto;
     top: 70px;
-    /* background-color: blueviolet; */
-}
-
-
-/* #register3 .container .card {
-    height: 350px;
-    display: flex;
-} */
-
-
-/* .container .card {
-    width: 360px;
-    height: 470px;
-    background-color: #fff;
-    border-radius: 10px;
-    padding-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    position: relative;
-    display: block;
-} */
-
-.form {
-    /* margin-top: 15px; */
-    /* background-color: aqua; */
 }
 
 form button {
@@ -109,11 +65,9 @@ form input {
     height: 45px;
     border: 2px solid #eee;
     transition: all 0.9s;
-    /* width: 90%; */
 }
 
 form .form-control {
-    /* width: 90%; */
     margin: auto;
 }
 
@@ -129,7 +83,6 @@ form>label {
 .social-button {
     height: 45px;
     background-color: #2541B2;
-    /* border-radius: 30px; */
 }
 
 .login-button {
@@ -147,18 +100,11 @@ form>label {
 
 #mainList #listUl li {
     list-style-type: none;
-    /* justify-content: space-evenly; */
     display: flex;
     position: relative;
     width: 100%;
     height: 60px;
 }
-
-
-/* #mainList #listUl button {
-    display: block;
-    float: right;
-  } */
 
 #mainList #listUl .unlike {
     display: block;
@@ -181,10 +127,6 @@ li:nth-of-type(odd) {
     top: 10px;
 }
 
-#mainList h1 {
-    /* position: absolute; */
-}
-
 #mainList #listUl li span {
     position: absolute;
     left: 60px;
@@ -203,8 +145,4 @@ li:nth-of-type(odd) {
 #mainList #listUl li a {
     text-decoration: none;
     color: black;
-}
-
-.match {
-    background-color: rgb(226, 102, 174) !important;
 }

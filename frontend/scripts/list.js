@@ -17,7 +17,7 @@ async function getMatch(matchId) {
 
 async function like(e) {
     e.preventDefault();
-    var target = e.target || e.srcElement;
+    let target = e.target || e.srcElement;
     while (target && !target.id) {
         target = target.parentNode;
     }
@@ -33,7 +33,6 @@ async function like(e) {
         type: 'PUT',
         data: match,
         success: function(data) {
-            console.log(data);
             if (data.status) {
                 if (match.firstUserLiked && match.secondUserLiked) {
                     alert("It's A Match!");
@@ -43,10 +42,6 @@ async function like(e) {
                 window.location.reload();
 
             } else {
-                // <<<<<<< HEAD
-                //                 console.log(`URL:${API_URL}/users/${userId}/matches/${matchId}`, )
-                //                     // alert(data.message);
-                // =======
                 alert(data.message);
 
             }
@@ -56,7 +51,7 @@ async function like(e) {
 
 async function unlike(e) {
     e.preventDefault();
-    var target = e.target || e.srcElement;
+    let target = e.target || e.srcElement;
     while (target && !target.id) {
         target = target.parentNode;
     }
@@ -72,13 +67,12 @@ async function unlike(e) {
         type: 'PUT',
         data: match,
         success: function(data) {
-            console.log(data);
             if (data.status) {
                 alert("unlike noted");
                 window.location.reload();
             } else {
-                console.log(`URL:${API_URL}/users/${userId}/matches/${matchId}`, )
-                    // alert(data.message);
+                console.log(data.message);
+                alert("Problem unliking");
             }
         }
     });
@@ -86,16 +80,15 @@ async function unlike(e) {
 
 function clickOnName(e) {
     e.preventDefault();
-    var target = e.target || e.srcElement;
+    let target = e.target || e.srcElement;
     while (target && !target.id) {
         target = target.parentNode;
     }
-    const userId = target.id.split("_")[0];
-    window.location.href = `/personalDetails.html?id=${userId}`;
+    const targetUserId = target.id.split("_")[0];
+    window.location.href = `http://localhost:5500/frontend/personalDetails.html?id=${userId}&user=${targetUserId}`;
 }
 
 async function buildRow(potentialMatch) {
-    console.log(potentialMatch);
     const row = document.createElement('tr');
     const otherUserId = potentialMatch.firstUser == userId ? potentialMatch.secondUser : potentialMatch.firstUser;
     const otherUser = await getUser(otherUserId);
@@ -153,7 +146,6 @@ async function buildRow(potentialMatch) {
 
 
 async function buildList(userPotentialMatches) {
-    console.log(userPotentialMatches);
     if (userPotentialMatches.length == 0) {
         const noMatches = document.createElement('p');
         noMatches.innerHTML = "No matches found 😢";
@@ -184,6 +176,5 @@ $(document).ready(async() => {
 
 
 $("#profileLink").click(function() {
-    console.log("profile");
     $(this).attr("href", "personalDetails.html?id=" + userId);
 })

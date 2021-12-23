@@ -1,7 +1,5 @@
 body {
     justify-content: center;
-    /* height: 1000px; */
-    /* padding-top: 100px; */
 }
 
 .container {
@@ -14,7 +12,6 @@ body {
     width: 700px;
     background-color: blanchedalmond;
     margin: auto;
-    /* top: 100px; */
     border-radius: 100px;
     padding-left: 20px;
 }
@@ -37,16 +34,14 @@ body {
     width: 350px;
     height: 600px;
     justify-content: center;
-    /* display: flex; */
     align-items: center;
     padding-left: 40px;
     padding-top: 30px;
 }
 
-h1 {
+h2 {
     position: absolute;
     top: 140px;
-    /* left: 100px; */
 }
 
 #mainDetails img {
@@ -55,7 +50,6 @@ h1 {
     height: 120px;
     position: absolute;
     top: 250px;
-    /* left: 130px; */
 }
 
 #moreDetails {
@@ -71,28 +65,23 @@ h1 {
 #moreDetails #tracks {
     width: 350px;
     height: 300px;
-    /* justify-content: center; */
 }
 
 #moreDetails>#tracks>h6 {
-    /* position: absolute; */
     display: block;
-    /* top: 90px; */
-    /* left: 20px; */
 }
 
 #ulArtists {
     position: absolute;
-    /* left: 60px; */
-    /* top: 70px; */
 }
 
-#moreDetails #ulTracks {
-    /* position: absolute; */
-    /* left: 60px; */
-    /* top: 100px; */
+#matchScore {
+    position: absolute;
+    bottom: 120px;
+    font-weight: bold;
 }
 
-#moreDetails #tracksTitle {
-    /* position: absolute; */
+#scoreTitle {
+    position: absolute;
+    bottom: 150px;
 }

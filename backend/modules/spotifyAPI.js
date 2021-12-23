@@ -10,8 +10,6 @@ const credentials = {
 const scopes = ['user-read-private','user-top-read' ,'user-read-email'];
   
 async function authorizeSpotify(userId,code) {
-    console.log(code);
-    console.log(credentials);
     try {
         const spotifyApi = new SpotifyWebApi(credentials);
         const data = await spotifyApi.authorizationCodeGrant(code);
@@ -27,11 +25,10 @@ async function authorizeSpotify(userId,code) {
 
 async function buildUserProfile(user) {
     const spotifyApi = new SpotifyWebApi(credentials);
-    let newUser = user;
     if (user && user.token) {
         spotifyApi.setAccessToken(user.token);
         spotifyApi.setRefreshToken(user.refreshToken);
-        const data = await Promise.all([addUserPersonalInfo(user.id, spotifyApi),addUserTopArtists(user.id, spotifyApi),addUserTopTracks(user.id, spotifyApi)]);
+        const data = await Promise.all([addUserPersonalInfo(spotifyApi),addUserTopArtists(spotifyApi),addUserTopTracks(spotifyApi)]);
         let newUser = user;
         Object.assign(newUser, data[0]);
         Object.assign(newUser, data[1]);
@@ -43,7 +40,7 @@ async function buildUserProfile(user) {
     }
 }
 
-async function addUserPersonalInfo(userId, spotifyApi) {
+async function addUserPersonalInfo(spotifyApi) {
     const data = await spotifyApi.getMe();
     const user = {}; 
     user.name = data.body.display_name;
@@ -54,7 +51,7 @@ async function addUserPersonalInfo(userId, spotifyApi) {
     return user;
 }
 
-async function addUserTopArtists(userId, spotifyApi) {
+async function addUserTopArtists(spotifyApi) {
     const data = await spotifyApi.getMyTopArtists({time_range:"long_term"});
     const artists = data.body.items;
     const artistsNames = [];
@@ -66,7 +63,7 @@ async function addUserTopArtists(userId, spotifyApi) {
     return user;
 }
 
-async function addUserTopTracks(userId, spotifyApi) {
+async function addUserTopTracks(spotifyApi) {
     const data = await spotifyApi.getMyTopTracks({limit: 50});
     const tracks = data.body.items;
     const tracksNames = [];
