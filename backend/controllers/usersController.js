@@ -67,48 +67,6 @@ const deleteUser = (req, res) => {
   });
 };
 
-const addLike = (req, res) => {
-  console.log(req.params.userId);
-  console.log(req.body.id);
-
-  User.findByIdAndUpdate(
-    req.params.userId,
-    {
-      $push: { likedMe: req.body.id },
-    },
-    function (err, result) {
-      res.json(result);
-    }
-  );
-};
-
-const addMatch = (req, res) => {
-  User.findByIdAndUpdate(
-    req.params.userId,
-    {
-      $push: { matches: req.body.id },
-    },
-    function (err, result) {
-      res.json(result);
-    }
-  );
-};
-
-const setGender = (req, res) => {
-  console.log("set gender");
-  console.log(req.body.interestedIn[0]);
-  console.log(req.body.interestedIn[1]);
-  User.findByIdAndUpdate(
-    req.params.userId,
-    {
-      $push: { interestedIn: req.body.interestedIn },
-      gender: req.body.gender,
-    },
-    function (err, result) {
-      res.json(result);
-    }
-  );
-};
 
 module.exports = {
   getAllUsers,
@@ -116,7 +74,4 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
-  addLike,
-  addMatch,
-  setGender,
 };

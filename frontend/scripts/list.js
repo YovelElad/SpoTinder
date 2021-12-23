@@ -33,7 +33,6 @@ async function like(e) {
         type: 'PUT',
         data: match,
         success: function(data) {
-            console.log(data);
             if (data.status) {
                 if (match.firstUserLiked && match.secondUserLiked) {
                     alert("It's A Match!");
@@ -68,13 +67,12 @@ async function unlike(e) {
         type: 'PUT',
         data: match,
         success: function(data) {
-            console.log(data);
             if (data.status) {
                 alert("unlike noted");
                 window.location.reload();
             } else {
-                console.log(`URL:${API_URL}/users/${userId}/matches/${matchId}`, )
-                    // alert(data.message);
+                console.log(data.message);
+                alert("Problem unliking");
             }
         }
     });
@@ -91,7 +89,6 @@ function clickOnName(e) {
 }
 
 async function buildRow(potentialMatch) {
-    console.log(potentialMatch);
     const row = document.createElement('tr');
     const otherUserId = potentialMatch.firstUser == userId ? potentialMatch.secondUser : potentialMatch.firstUser;
     const otherUser = await getUser(otherUserId);
@@ -149,7 +146,6 @@ async function buildRow(potentialMatch) {
 
 
 async function buildList(userPotentialMatches) {
-    console.log(userPotentialMatches);
     if (userPotentialMatches.length == 0) {
         const noMatches = document.createElement('p');
         noMatches.innerHTML = "No matches found 😢";
@@ -172,7 +168,6 @@ $(document).ready(async() => {
         url: `${API_URL}/users/${userId}/matches`,
         type: "GET",
         success: function(data) {
-            console.log(data);
             buildList(data.data || []);
         },
         dataType: "JSON"
@@ -181,6 +176,5 @@ $(document).ready(async() => {
 
 
 $("#profileLink").click(function() {
-    console.log("profile");
     $(this).attr("href", "personalDetails.html?id=" + userId);
 })

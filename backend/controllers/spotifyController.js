@@ -5,14 +5,11 @@ const DB = require("../data/index");
 
 callback = (req, res) => {
   const code = req.query.code || null;
-  console.log(req.query);
   if (code) {
     const userId = req.query.state;
     api.authorizeSpotify(userId, code).then((user) => {
       api.buildUserProfile(user).then((newUser) => {
-        console.log(`then of buildUserProfile, user: ${newUser}`);
         DB.getUser(userId).then((user) => {
-          console.log(`then of getUser, user: ${user.id}`);
           if (user) {
             newUser.email = user.email;
             newUser.password = user.password;
@@ -21,7 +18,6 @@ callback = (req, res) => {
           }
           DB.updateUser(userId, newUser);
           matchEngine.calculateMatches(newUser).then((matches) => {
-            console.log(`then of calculateMatches, user: ${matches}`);
             Match.insertMany(matches, (err, docs) => {
               if (err) {
                 console.log(err);

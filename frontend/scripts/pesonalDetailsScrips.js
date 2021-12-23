@@ -4,9 +4,7 @@ const urlUser = urlParams.get('user');
 async function getScore(user) {
     const responds = await fetch(`${API_URL}/users/${user._id}/matches`);
     const matches = await responds.json();
-    console.log(matches);
     const match = matches.data.find(m => m.firstUser == userId || m.secondUser == userId);
-    console.log(match.score);
     return match.score;
 }
 
@@ -76,6 +74,5 @@ $.ajax({
 
 
 $("#homePageLink").click(function() {
-    console.log("profile");
     $(this).attr("href", "list.html?id=" + userId);
 })

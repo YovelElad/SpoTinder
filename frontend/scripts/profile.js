@@ -25,7 +25,7 @@ function buildProfile(user) {
 
 $("#profileForm").submit(function(e) {
     e.preventDefault();
-    let preferences = [];
+    const preferences = [];
     $.each($("input[name='genderPreference']:checked"), function() {
         preferences.push($(this).val());
     });
@@ -46,14 +46,10 @@ $("#profileForm").submit(function(e) {
         data: user,
 
         success: function(data) {
-            console.log(data);
             if (data.status) {
-                console.log(data.data);
                 buildProfile(user);
-                // window.location.href = "/frontend/spotifyLogin.html?id=" + data.data._id;
             } else {
                 alert(data.message);
-                // window.location.href = "/frontend/login.html";
             }
 
         }

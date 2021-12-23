@@ -9,7 +9,6 @@ $("#spotify").submit(function(e) {
         processData: false,
         contentType: false,
         success: function(data){
-            console.log(data);
             if(data.status){
                 window.location.href =  data.data;
             }

@@ -1,10 +1,9 @@
 $("#registerForm").submit(function(e){
     e.preventDefault();
-    var formData = {
+    const formData = {
         password: $('#password').val(),
         email: $('#email').val(),
     };
-    console.log(formData);
 
     $.ajax({
         url: `${API_URL}/login?username=${formData.email}`,
@@ -12,7 +11,6 @@ $("#registerForm").submit(function(e){
         data: formData,
         success: function(data){
             if(data.status){
-                console.log(data.data);
                 window.location.href = "/frontend/list.html?id=" + data.data._id;
             } else {
                 alert(data.message);

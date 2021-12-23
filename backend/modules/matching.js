@@ -2,7 +2,6 @@ const db = require('../data/index.js');
 
 
 async function calculateMatches(theUser) {
-    console.log(`calculateMatches, user id: ${theUser.id}`);
     const userTopArtists = theUser.topArtists;
     const userTopTracks = theUser.topTracks;
     const userMatches = [];
@@ -13,7 +12,6 @@ async function calculateMatches(theUser) {
         }
         if((user.interestedIn.includes(theUser.gender) && theUser.interestedIn.includes(user.gender))) {
             const matchScore = calculateMatchScore(user, userTopArtists, userTopTracks);
-            console.log(matchScore.score);
             if (matchScore.score > 0.5) {
                 userMatches.push({firstUser:theUser.id, secondUser: user._id,score:matchScore.score, mutualArtists:matchScore.mutualArtists, mutualTracks:matchScore.mutualTracks});
             }
@@ -32,7 +30,6 @@ function calculateMatchScore(user, userTopArtists, userTopTracks) {
     const tracksMatch = userTopTracks.filter(track => userTopTracksNames.includes(track));
     const artistAvailable = Math.min(userTopArtistsNames.length, userTopArtists.length);
     const trackAvailable = Math.min(userTopTracksNames.length, userTopTracks.length);
-    console.log(`artistAvailable: ${artistAvailable}, trackAvailable: ${trackAvailable}`);
     matchScore = ((artistsMatch.length + tracksMatch.length) / (artistAvailable + trackAvailable));
     return {
         score: matchScore,
