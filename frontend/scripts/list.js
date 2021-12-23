@@ -17,7 +17,7 @@ async function getMatch(matchId) {
 
 async function like(e) {
     e.preventDefault();
-    var target = e.target || e.srcElement;
+    let target = e.target || e.srcElement;
     while (target && !target.id) {
         target = target.parentNode;
     }
@@ -51,7 +51,7 @@ async function like(e) {
 
 async function unlike(e) {
     e.preventDefault();
-    var target = e.target || e.srcElement;
+    let target = e.target || e.srcElement;
     while (target && !target.id) {
         target = target.parentNode;
     }
@@ -80,7 +80,7 @@ async function unlike(e) {
 
 function clickOnName(e) {
     e.preventDefault();
-    var target = e.target || e.srcElement;
+    let target = e.target || e.srcElement;
     while (target && !target.id) {
         target = target.parentNode;
     }
