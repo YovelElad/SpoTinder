@@ -15,6 +15,12 @@ async function getMatch(matchId) {
     return data.data;
 }
 
+function sortTable() {
+    $("tbody").find('tr').sort(function(a,b) {
+        return $($(b).children()[2]).html().split("%")[0] - $($(a).children()[2]).html().split("%")[0];
+      }).appendTo($("tbody"));
+}
+
 async function like(e) {
     e.preventDefault();
     let target = e.target || e.srcElement;
@@ -92,6 +98,8 @@ async function buildRow(potentialMatch) {
     const row = document.createElement('tr');
     const otherUserId = potentialMatch.firstUser == userId ? potentialMatch.secondUser : potentialMatch.firstUser;
     const otherUser = await getUser(otherUserId);
+    if (!otherUser)
+        return;
     row.id = otherUserId;
     const imageCell = document.createElement('td');
     imageCell.classList.add("text-center", "align-middle");
@@ -156,23 +164,33 @@ async function buildList(userPotentialMatches) {
             buildRow(user).then((row) => {
                 list.append(row);
             });
-
         });
         document.getElementById('list').append(list);
     }
 }
 
 
-$(document).ready(async() => {
+$(document).ready(() => {
     $.ajax({
         url: `${API_URL}/users/${userId}/matches`,
         type: "GET",
         success: function(data) {
-            buildList(data.data || []);
+            if (data.status) {
+                buildList(data.data);
+            } else {
+                console.log(data.message);
+                buildList([]);
+            }
         },
         dataType: "JSON"
     });
 });
+$(document).ready(() => {
+    setTimeout(() => {
+        sortTable();
+    }, 3000);
+});
+
 
 
 $("#profileLink").click(function() {
