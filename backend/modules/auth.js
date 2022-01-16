@@ -2,6 +2,9 @@ const User = require('../models/userModel');
 
 module.exports = {
     login: function(req, res) {
+        if (!req.body.email || !req.body.password) {
+            return res.json({ status: false, message: 'Please pass email and password.' });
+        }
         User.findOne({ email: req.body.email }, (err, user) => {
             if (err) {
                 res.json({ status: false, message: err });
