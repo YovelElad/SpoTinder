@@ -24,13 +24,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('frontend'));
 
-app.use('/users', [auth.verifyToken, auth.isPaid], usersRouter);
+app.use('/users', [auth.verifyToken], usersRouter);
 app.use('/spotify', [auth.verifyToken], spotifyRouter);
 app.post('/login', auth.signin);
 app.post('/signup', auth.signup);
-app.get('/', function(req, res) {
-    res.sendFile('./test.html', { root: __dirname });
-    });
+
 app.all('*', (req, res) => {
     res.json({ status: false, message: 'Route not found' });
 });
