@@ -12,7 +12,8 @@ const userSchema = new Schema({
     token: { type: String },
     refreshToken: { type: String },
     gender: { type: String },
-    interestedIn: { type: Array }
+    interestedIn: { type: Array },
+    role: {type: String}
 }, { collection: 'users' });
 
 
