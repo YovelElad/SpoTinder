@@ -5,6 +5,7 @@ const port = process.env.PORT || 8888;
 const auth  = require('./modules/auth.js');
 const cors = require('cors')
 const Match = require("./models/matchModel");
+
  
 
 const http = require('http').Server(app);
@@ -23,9 +24,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('frontend'));
 
-app.use('/users', usersRouter);
-app.use('/spotify', spotifyRouter);
-app.post('/login', auth.login);
+app.use('/users', [auth.verifyToken, auth.isPaid], usersRouter);
+app.use('/spotify', [auth.verifyToken], spotifyRouter);
+app.post('/login', auth.signin);
+app.post('/signup', auth.signup);
 app.get('/', function(req, res) {
     res.sendFile('./test.html', { root: __dirname });
     });
