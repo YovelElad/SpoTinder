@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const Role = require('../models/roleModel');
 const jwt = require("jsonwebtoken");
 const config = require("../config/auth.config.js");
 var bcrypt = require("bcrypt");
@@ -20,6 +21,36 @@ module.exports = {
           next();
         });
     },
+
+    isPaid: (req, res, next) => {
+      User.findById(req.userId, (err, user) => {
+        if (err) {
+          return res.status(500).json({ status: false, message: "Error on the server." });
+        }
+        if (!user) {
+          return res.status(404).json({ status: false, message: "No user found." });
+        } else {
+          const userJson = user.toJSON();
+          console.log(userJson.role);
+          Role.findById(userJson.role, (err, role) => {
+            if (err) {
+              return res.status(500).json({ status: false, message: "Error on the server." });
+            }
+            if (!role) {
+              return res.status(404).json({ status: false, message: "No role found.", role: userJson.role });
+            } else {
+              if (role.name === "paid") {
+                next();
+              } else {
+                return res.status(401).json({ status: false, message: "Unauthorized." });
+              }
+            }
+          });
+        }
+      }
+      );
+    },
+    
     login: function(req, res) {
         if (!req.body.email || !req.body.password) {
             return res.json({ status: false, message: 'Please pass email and password.' });
@@ -67,7 +98,7 @@ module.exports = {
               });
             }
       
-            var token = jwt.sign({ id: user.id }, config.secret, {
+            var token = jwt.sign({ id: user._id }, config.secret, {
               expiresIn: 86400 // 24 hours
             });
             res.status(200).json({
