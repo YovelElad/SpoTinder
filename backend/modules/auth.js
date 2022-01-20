@@ -97,7 +97,7 @@ module.exports = {
               });
             }
       
-            var token = jwt.sign({ id: user._id }, config.secret, {
+            var token = jwt.sign({ id: user._id }, process.env.SECRET, {
               expiresIn: 86400 // 24 hours
             });
 
