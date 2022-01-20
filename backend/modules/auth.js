@@ -1,7 +1,6 @@
 const User = require('../models/userModel');
 const Role = require('../models/roleModel');
 const jwt = require("jsonwebtoken");
-const config = require("../config/auth.config.js");
 var bcrypt = require("bcrypt");
 
 
@@ -13,7 +12,7 @@ module.exports = {
           return res.status(403).send({ message: "No token provided!" });
         }
       
-        jwt.verify(token, config.secret, (err, decoded) => {
+        jwt.verify(token, process.env.SECRET, (err, decoded) => {
           if (err) {
             return res.status(401).send({ message: "Unauthorized!" });
           }
