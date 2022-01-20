@@ -112,24 +112,44 @@ module.exports = {
 
       signup: (req, res) => {
         const newUser = new User({
-          ...req.body,
-          password: bcrypt.hashSync(req.body.password, 8)
+          ...req.body.user,
+          password: bcrypt.hashSync(req.body.user.password, 8)
         });
 
         console.log(newUser);
 
-        User.findOne({ email: req.body.email }, (err, user) => {
+        User.findOne({ email: req.body.user.email }, (err, user) => {
             if (err) {
               res.json({ status: false, message: err });
             } else {
               if (user) {
-                res.json({ status: false, message: "User already exists" });
+                res.json({ status: false, message: "User already exists", user: user });
               } else {
                 newUser.save((err, user) => {
                   if (err) {
                     res.json({ status: false, message: err });
                   } else {
-                    res.json({ status: true, data: user });
+                    Role.findOne(
+                      { name: req.body.isPaid ? "paid" : "free" },
+                      (err, role) => {
+                        if (err) {
+                          res.json({ status: false, message: err, line: "136" });
+                        } else {
+                          if (role) {
+                            user.role = role;
+                            user.save((err, user) => {
+                              if (err) {
+                                res.json({ status: false, message: err, line: "142" });
+                              } else {
+                                res.json({ status: true, message: "User registered successfully!", data: user });
+                              }
+                            });
+                          } else {
+                            res.json({ status: false, message: "Role not found" });
+                          }
+                        }
+                      }
+                    )
                   }
                 });
               }
