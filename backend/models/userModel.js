@@ -13,7 +13,7 @@ const userSchema = new Schema({
     refreshToken: { type: String },
     gender: { type: String },
     interestedIn: { type: Array },
-    role: {type: String}
+    role: {type: Schema.Types.ObjectId, ref: "Role"}
 }, { collection: 'users' });
 
 

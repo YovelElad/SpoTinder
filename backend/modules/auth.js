@@ -61,7 +61,7 @@ module.exports = {
             } else {
                 if (user) {
                     if (user.password === req.body.password) {
-                        res.json({ status: true, data: user });
+                        res.json({ status: true, data: {...user, role: user.role.name.toUpperCase()} });
                     } else {
                         res.json({ status: false, message: "Wrong password" });
                     }
@@ -77,7 +77,7 @@ module.exports = {
         }
         User.findOne({
             email: req.body.email
-        })
+        }).populate('role','-_id')
           .exec((err, user) => {
             if (err) {
               res.status(500).send({ message: err });
@@ -101,10 +101,12 @@ module.exports = {
             var token = jwt.sign({ id: user._id }, config.secret, {
               expiresIn: 86400 // 24 hours
             });
+
             res.status(200).json({
               status: true,
-              user: user,
-              accessToken: token
+              user: user ,
+              accessToken: token,
+              role: user.role.name.toUpperCase()
             });
           });
       },
