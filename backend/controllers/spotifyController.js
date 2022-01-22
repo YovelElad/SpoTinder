@@ -5,9 +5,11 @@ const DB = require("../data/index");
 
 callback = (req, res) => {
   const code = req.query.code || null;
+  console.log(`code: ${code}`);
   if (code) {
     const userId = req.query.state;
     api.authorizeSpotify(userId, code).then((user) => {
+      console.log(`user: ${user}`);
       api.buildUserProfile(user).then((newUser) => {
         DB.getUser(userId).then((user) => {
           if (user) {
