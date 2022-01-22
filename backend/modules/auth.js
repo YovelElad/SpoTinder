@@ -144,7 +144,7 @@ module.exports = {
                                 var token = jwt.sign({ id: user._id }, process.env.SECRET, {
                                   expiresIn: 86400 // 24 hours
                                 });
-                                res.json({ status: true, message: "User registered successfully!", data: user, accessToken: token, role: user.role.name.toUpperCase() });
+                                res.json({ status: true, message: "User registered successfully!", user: user, accessToken: token, role: user.role.name.toUpperCase() });
                               }
                             });
                           } else {
