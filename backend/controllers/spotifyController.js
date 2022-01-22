@@ -25,7 +25,7 @@ callback = (req, res) => {
                 console.log(`inserted ${docs.length} matches`);
               }
             });
-            res.redirect("http://localhost:5500/frontend/list.html?id=" + userId);
+            res.redirect("http://localhost:3000");
           });
         });
       });
