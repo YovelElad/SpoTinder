@@ -40,10 +40,9 @@ callback = (req, res) => {
 };
 
 login = (req, res) => {
-  console.log("spotify login");
-  console.log(req.headers['x-access-token']);
-  const accessToken = req.headers['x-access-token'];
-  const url = api.getAuthorizationUrl(accessToken);
+  console.log("spotifyu login");
+  const userId = req.params.userId;
+  const url = api.getAuthorizationUrl(userId);
   res.json({ status: true, data: url });
 };
 
