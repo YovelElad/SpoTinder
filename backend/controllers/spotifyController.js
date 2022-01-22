@@ -41,8 +41,8 @@ callback = (req, res) => {
 
 login = (req, res) => {
   console.log("spotify login");
-  console.log(req.headers)
-  const accessToken = "req.headers.x_access_token";
+  console.log(req.headers['x-access-token']);
+  const accessToken = req.headers['x-access-token'];
   const url = api.getAuthorizationUrl(accessToken);
   res.json({ status: true, data: url });
 };

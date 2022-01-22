@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('frontend'));
 
 app.use('/users', [auth.verifyToken], usersRouter);
-app.use('/spotify', [auth.verifyToken], spotifyRouter);
+app.use('/spotify', spotifyRouter);
 app.post('/login', auth.signin);
 app.post('/signup', auth.signup);
 

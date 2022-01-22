@@ -1,9 +1,10 @@
 const { Router } = require('express');
-const spotifyController = require('../controllers/spotifyController');
+const spotifyController = require('../ontrollers/spotifyController');
+const auth  = require('../modules/auth.js');
 
 const spotifyRouter = new Router();
 
 spotifyRouter.get('/callback', spotifyController.callback);
-spotifyRouter.get('/login/:userId', spotifyController.login);
+spotifyRouter.get('/login/:userId',[auth.verifyToken], spotifyController.login);
 
 module.exports = {spotifyRouter: spotifyRouter};
