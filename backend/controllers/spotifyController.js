@@ -4,6 +4,7 @@ const matchEngine = require("../modules/matching");
 const DB = require("../data/index");
 
 callback = (req, res) => {
+  console.log("callback");
   const code = req.query.code || null;
   console.log(`code: ${code}`);
   if (code) {
@@ -39,6 +40,7 @@ callback = (req, res) => {
 };
 
 login = (req, res) => {
+  console.log("spotify login");
   const userId = req.params.userId;
   const url = api.getAuthorizationUrl(userId);
   res.json({ status: true, data: url });
