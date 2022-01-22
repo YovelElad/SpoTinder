@@ -141,7 +141,10 @@ module.exports = {
                               if (err) {
                                 res.json({ status: false, message: err, line: "142" });
                               } else {
-                                res.json({ status: true, message: "User registered successfully!", data: user });
+                                var token = jwt.sign({ id: user._id }, process.env.SECRET, {
+                                  expiresIn: 86400 // 24 hours
+                                });
+                                res.json({ status: true, message: "User registered successfully!", data: user, accessToken: token, role: user.role.name.toUpperCase() });
                               }
                             });
                           } else {
