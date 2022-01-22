@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const spotifyController = require('../ontrollers/spotifyController');
+const spotifyController = require('../controllers/spotifyController');
 const auth  = require('../modules/auth.js');
 
 const spotifyRouter = new Router();
