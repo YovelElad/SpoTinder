@@ -49,6 +49,8 @@ const createUser = (req, res) => {
 
 const updateUser = (req, res) => {
   const userRole = Role.findOne({ name: req.body.role.toLowerCase() });
+  console.log(`userRole: ${req.body.role}`);
+  console.log({...req.body, role: userRole});
   User.findByIdAndUpdate(req.params.userId, {...req.body, role: userRole}, (err, user) => {
     if (err) {
       res.json({ status: false, message: err });
