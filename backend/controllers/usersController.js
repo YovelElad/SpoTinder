@@ -53,13 +53,19 @@ const createUser = (req, res) => {
 const updateUser = (req, res) => {
   Role.findOne({ name: req.body.role.toLowerCase() }).then(role => {
     if (role) {
+      const userData = req.body.password ? {
+        ...req.body,
+        password: bcrypt.hashSync(req.body.password, 8),
+        role: role._id
+      }
+      :
+      {
+        ...req.body,
+        role: role._id
+      };
       User.findByIdAndUpdate(
         req.params.userId,
-        {
-          ...req.body,
-          params: bcrypt.hashSync(req.body.password, 8),
-          role: role._id
-        }
+        userData
       ).then(user => {
         if (user) {
           res.json({ status: true, data: user });
