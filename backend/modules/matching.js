@@ -2,6 +2,8 @@ const db = require('../data/index.js');
 
 
 async function calculateMatches(theUser) {
+    console.log("calculateMatches");
+    console.log(theUser);
     const userTopArtists = theUser.topArtists;
     const userTopTracks = theUser.topTracks;
     const userMatches = [];
