@@ -1,5 +1,8 @@
 const User = require("../models/userModel");
+const Role = require("../models/roleModel");
 const DB = require("../data/index");
+const bcrypt = require("bcrypt");
+
 
 const getAllUsers = (req, res) => {
   User.find({}, (err, users) => {
@@ -48,14 +51,50 @@ const createUser = (req, res) => {
 };
 
 const updateUser = (req, res) => {
-  User.findByIdAndUpdate(req.params.userId, req.body, (err, user) => {
-    if (err) {
-      res.json({ status: false, message: err });
+  Role.findOne({ name: req.body.role.toLowerCase() }).then(role => {
+    if (role) {
+      let userData;
+      if(req.body.password){
+        userData = {
+        ...req.body,
+        password: bcrypt.hashSync(req.body.password, 8),
+        role: role._id
+      }
     } else {
-      res.json({ status: true, data: user });
+      userData = {
+        ...req.body,
+        role: role._id
+      }
+      delete userData.password;
+    }
+      User.findByIdAndUpdate(
+        req.params.userId,
+        userData
+      ).then(user => {
+        if (user) {
+          res.json({ status: true, data: user });
+        } else {
+          res.json({ status: false, message: "User not found" });
+        }
+      });
+    } else {
+      res.json({ status: false, message: "Role not found" });
     }
   });
 };
+          
+            
+            
+//   console.log(`userRole: ${req.body.role}`);
+//   console.log({...req.body, role: userRole});
+//   User.findByIdAndUpdate(req.params.userId, {...req.body, role: userRole}, (err, user) => {
+//     if (err) {
+//       res.json({ status: false, message: err });
+//     } else {
+//       res.json({ status: true, data: user });
+//     }
+//   });
+// };
 
 const deleteUser = (req, res) => {
   User.findByIdAndRemove(req.params.userId, (err, user) => {

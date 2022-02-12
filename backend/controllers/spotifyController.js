@@ -20,7 +20,9 @@ callback = (req, res) => {
             newUser.interestedIn = user.interestedIn;
           }
           DB.updateUser(userId, newUser);
+          console.log("about to calculate matches");
           matchEngine.calculateMatches(newUser).then((matches) => {
+            console.log(`matches: ${matches.length}`);
             Match.insertMany(matches, (err, docs) => {
               if (err) {
                 console.log(err);
