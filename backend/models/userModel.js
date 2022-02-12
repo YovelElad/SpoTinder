@@ -11,7 +11,7 @@ const userSchema = new Schema({
     topTracks: { type: Array },
     token: { type: String },
     refreshToken: { type: String },
-    gender: { type: String },
+    gender: { type: String, lowercase: true },
     interestedIn: { type: Array },
     role: {type: Schema.Types.ObjectId, ref: "Role"}
 }, { collection: 'users' });
