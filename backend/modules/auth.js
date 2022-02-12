@@ -1,7 +1,7 @@
 const User = require('../models/userModel');
 const Role = require('../models/roleModel');
 const jwt = require("jsonwebtoken");
-var bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
 
 
 module.exports = {

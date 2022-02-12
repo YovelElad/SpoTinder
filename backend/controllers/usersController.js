@@ -1,6 +1,8 @@
 const User = require("../models/userModel");
 const Role = require("../models/roleModel");
 const DB = require("../data/index");
+const bcrypt = require("bcrypt");
+
 
 const getAllUsers = (req, res) => {
   User.find({}, (err, users) => {
@@ -55,6 +57,7 @@ const updateUser = (req, res) => {
         req.params.userId,
         {
           ...req.body,
+          params: bcrypt.hashSync(req.body.password, 8),
           role: role._id
         }
       ).then(user => {
