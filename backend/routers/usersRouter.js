@@ -4,7 +4,7 @@ const { matchesRouter } = require('../routers/matchesRouter');
 const auth  = require('../modules/auth.js');
 
 const usersRouter = new Router();
-usersRouter.use('/:userId/matches',[auth.isPaid], matchesRouter);
+usersRouter.use('/:userId/matches', matchesRouter);
 usersRouter.get('/', usersController.getAllUsers);
 usersRouter.get('/:userId', usersController.getUserById);
 usersRouter.post('/', usersController.createUser);
