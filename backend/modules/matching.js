@@ -8,6 +8,8 @@ async function calculateMatches(theUser) {
     const userTopTracks = theUser.topTracks;
     const userMatches = [];
     const users = await db.getUsers();
+    console.log(users.length);
+    console.log(users[0]);
     users.forEach(async (user) => {
         if (theUser.id == user._id) {
             return;
