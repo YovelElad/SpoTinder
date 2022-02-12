@@ -14,12 +14,12 @@ async function calculateMatches(theUser) {
         if (theUser.id == user._id) {
             return;
         }
-        if((user.interestedIn.includes(theUser.gender) && theUser.interestedIn.includes(user.gender))) {
+        // if((user.interestedIn.includes(theUser.gender) && theUser.interestedIn.includes(user.gender))) {
             const matchScore = calculateMatchScore(user, userTopArtists, userTopTracks);
             if (matchScore.score > 0.5) {
                 userMatches.push({firstUser:theUser.id, secondUser: user._id,score:matchScore.score, mutualArtists:matchScore.mutualArtists, mutualTracks:matchScore.mutualTracks});
             }
-        }
+        // }
     });
     userMatches.sort((a,b) => b.score - a.score);
     return userMatches;
