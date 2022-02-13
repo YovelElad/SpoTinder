@@ -60,7 +60,7 @@ io.on('connection', function(socket) {
         );
                 
         console.log(data.message);
-        socket.to(data.room).emit('receive-message', {sender: id, data: data.message});
+        socket.to(data.room).emit('receive-message', {sender: id, data: data.message, room: data.room});
     });
 
     socket.on('disconnect', function () {
