@@ -11,7 +11,7 @@ const Match = require("./models/matchModel");
 const http = require('http').Server(app);
 const io = require('socket.io')(http, {
     cors: {
-      origin: "http://localhost:3000",
+      origin: "https://spotinder.netlify.app",
       methods: ["GET", "POST"]
     }
     });
