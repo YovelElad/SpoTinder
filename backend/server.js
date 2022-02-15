@@ -15,6 +15,7 @@ const io = require('socket.io')(http, {
       methods: ["GET", "POST"]
     }
     });
+io.set('origins', 'https://spotinder.netlify.app:* localhost:*');
 
 const { usersRouter } = require('./routers/usersRouter');
 const { spotifyRouter } = require('./routers/spotifyRouter');

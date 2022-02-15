@@ -30,7 +30,7 @@ callback = (req, res) => {
                 console.log(`inserted ${docs.length} matches`);
               }
             });
-            res.redirect("http://localhost:3000");
+            res.redirect("https://spotinder.netlify.app");
           });
         });
       });
