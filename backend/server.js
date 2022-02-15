@@ -11,11 +11,10 @@ const Match = require("./models/matchModel");
 const http = require('http').Server(app);
 const io = require('socket.io')(http, {
     cors: {
-      origin: "https://spotinder.netlify.app",
+      origins: ["https://spotinder.netlify.app", "http://localhost:3000"],
       methods: ["GET", "POST"]
     }
     });
-io.set('origins', 'https://spotinder.netlify.app:* localhost:*');
 
 const { usersRouter } = require('./routers/usersRouter');
 const { spotifyRouter } = require('./routers/spotifyRouter');
