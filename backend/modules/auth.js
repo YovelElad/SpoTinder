@@ -30,7 +30,6 @@ module.exports = {
           return res.status(404).json({ status: false, message: "No user found." });
         } else {
           const userJson = user.toJSON();
-          console.log(userJson.role);
           Role.findById(userJson.role, (err, role) => {
             if (err) {
               return res.status(500).json({ status: false, message: "Error on the server." });
@@ -115,8 +114,6 @@ module.exports = {
           ...req.body.user,
           password: bcrypt.hashSync(req.body.user.password, 8)
         });
-
-        console.log(newUser);
 
         User.findOne({ email: req.body.user.email }, (err, user) => {
             if (err) {

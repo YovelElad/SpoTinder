@@ -11,7 +11,7 @@ const Match = require("./models/matchModel");
 const http = require('http').Server(app);
 const io = require('socket.io')(http, {
     cors: {
-      origin: "http://localhost:3000",
+      origins: ["https://spotinder.netlify.app", "http://localhost:3000"],
       methods: ["GET", "POST"]
     }
     });
@@ -57,9 +57,7 @@ io.on('connection', function(socket) {
                     console.log(err);
                 }
             }
-        );
-                
-        console.log(data.message);
+        );             
         socket.to(data.room).emit('receive-message', {sender: id, data: data.message, room: data.room});
     });
 
