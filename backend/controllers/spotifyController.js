@@ -4,13 +4,10 @@ const matchEngine = require("../modules/matching");
 const DB = require("../data/index");
 
 callback = (req, res) => {
-  console.log("callback");
   const code = req.query.code || null;
-  console.log(`code: ${code}`);
   if (code) {
     const userId = req.query.state;
     api.authorizeSpotify(userId, code).then((user) => {
-      console.log(`user: ${user}`);
       api.buildUserProfile(user).then((newUser) => {
         DB.getUser(userId).then((user) => {
           if (user) {
@@ -20,9 +17,7 @@ callback = (req, res) => {
             newUser.interestedIn = user.interestedIn;
           }
           DB.updateUser(userId, newUser);
-          console.log("about to calculate matches");
           matchEngine.calculateMatches(newUser).then((matches) => {
-            console.log(`matches: ${matches.length}`);
             Match.insertMany(matches, (err, docs) => {
               if (err) {
                 console.log(err);
@@ -30,7 +25,7 @@ callback = (req, res) => {
                 console.log(`inserted ${docs.length} matches`);
               }
             });
-            res.redirect("https://spotinder.netlify.app");
+            res.redirect("https://spotinder.netlify.app/");
           });
         });
       });
@@ -42,7 +37,6 @@ callback = (req, res) => {
 };
 
 login = (req, res) => {
-  console.log("spotifyu login");
   const userId = req.params.userId;
   const url = api.getAuthorizationUrl(userId);
   res.json({ status: true, data: url });

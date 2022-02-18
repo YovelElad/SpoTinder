@@ -57,9 +57,7 @@ io.on('connection', function(socket) {
                     console.log(err);
                 }
             }
-        );
-                
-        console.log(data.message);
+        );             
         socket.to(data.room).emit('receive-message', {sender: id, data: data.message, room: data.room});
     });
 

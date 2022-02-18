@@ -83,18 +83,7 @@ const updateUser = (req, res) => {
   });
 };
           
-            
-            
-//   console.log(`userRole: ${req.body.role}`);
-//   console.log({...req.body, role: userRole});
-//   User.findByIdAndUpdate(req.params.userId, {...req.body, role: userRole}, (err, user) => {
-//     if (err) {
-//       res.json({ status: false, message: err });
-//     } else {
-//       res.json({ status: true, data: user });
-//     }
-//   });
-// };
+
 
 const deleteUser = (req, res) => {
   User.findByIdAndRemove(req.params.userId, (err, user) => {
